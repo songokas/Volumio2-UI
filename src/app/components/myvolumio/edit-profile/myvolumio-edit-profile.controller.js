@@ -157,7 +157,7 @@ class MyVolumioEditProfileController {
     this.deletingUser = true;
     this.authService.deleteUser(this.user).then(() => {
       this.deletingUser = false;
-      this.$state.go('myvolumio.login');
+      this.$state.go('myvolumio.access');
     }).catch(error => {
       this.deletingUser = false;
       this.modalService.openDefaultErrorModal(error);

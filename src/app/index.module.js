@@ -126,7 +126,7 @@ import SystemVersionPluginController from './plugin/core-plugin/system-version-p
 import FirmwareUploadPluginController from './plugin/core-plugin/firmware-upload-plugin.controller';
 import UiSettingsPluginController from './plugin/core-plugin/ui-settings-plugin.controller';
 
-//Core plugin: Auth
+//Core plugin: MyVolumio
 import MyVolumioLoginController from './components/myvolumio/login/myvolumio-login.controller';
 import MyVolumioSignupController from './components/myvolumio/signup/myvolumio-signup.controller';
 import MyVolumioProfileController from './components/myvolumio/profile/myvolumio-profile.controller';
@@ -140,6 +140,7 @@ import MyVolumioVerifyUserController from './components/myvolumio/verify-user/my
 import MyVolumioCancelSubscriptionController from './components/myvolumio/cancel-subscription/myvolumio-cancel-subscription.controller';
 import MyVolumioChangeSubscriptionController from './components/myvolumio/change-subscription/myvolumio-change-subscription.controller';
 import MyVolumioCloudSelectDeviceController from './components/myvolumio/select-device/myvolumio-cloud-select-device.controller';
+import MyVolumioAccessController from './components/myvolumio/access/myvolumio-access.controller';
 
 
 angular.module('volumio', [
@@ -315,4 +316,5 @@ angular.module('volumio', [
   .controller('MyVolumioVerifyUserController', MyVolumioVerifyUserController)
   .controller('MyVolumioCancelSubscriptionController', MyVolumioCancelSubscriptionController)
   .controller('MyVolumioChangeSubscriptionController', MyVolumioChangeSubscriptionController)
-  .controller('MyVolumioCloudSelectDeviceController', MyVolumioCloudSelectDeviceController);
+  .controller('MyVolumioCloudSelectDeviceController', MyVolumioCloudSelectDeviceController)
+  .controller('MyVolumioAccessController', MyVolumioAccessController);

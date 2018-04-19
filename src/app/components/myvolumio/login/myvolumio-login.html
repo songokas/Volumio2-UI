@@ -12,6 +12,14 @@
     <div class="panel-body">
 
       <div id="" ng-if="myVolumioLoginController.user == null">
+
+        <h4 style="text-align: right; margin-right: 16px;">
+          <a ng-click="myVolumioLoginController.goToSignUp()">
+            <i class="fa fa-user"></i>
+            <span translate="MYVOLUMIO.SIGNUP"></span>
+          </a>
+        </h4>
+
         <div class="omb_login">
           <h3 class="omb_authTitle">Login</h3>
 

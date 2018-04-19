@@ -320,6 +320,9 @@
     "SUPERSTAR_FEATURE1": "An amazing superstar feature",
     "ERROR_SERVER_TIMEOUT": "We're sorry but the server it's taking too much to respond. Please try again.",
     "NOT_LOGGED": "You're not logged. Please log-in or sign-up.",
-    "OPEN_DEVICE": "Connect with this device"
+    "OPEN_DEVICE": "Connect with this device",
+    "ACCESS": "Access",
+    "REGISTER_NOW_FOR": "Register now for",
+    "ALREADY_HAVE_ACCOUNT": "Already have an account?"
   }
 }

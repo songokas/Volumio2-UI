@@ -53,7 +53,7 @@ class MyVolumioCardController {
   logOut() {
     this.authService.logOut().then(() => {
       this.actionCallback();
-      this.$state.go('myvolumio.login');
+      this.$state.go('myvolumio.access');
     }).catch(error => {
       this.modalService.openDefaultErrorModal(error);
     });

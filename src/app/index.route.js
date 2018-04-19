@@ -225,7 +225,7 @@ function routerConfig(
     url: '/logout',
     onEnter: function(authService, $state) {
       authService.logOut().then(() => {
-        $state.go("myvolumio.login");
+        $state.go("myvolumio.access");
         return true;
       });
     }
@@ -238,6 +238,25 @@ function routerConfig(
         templateUrl: 'app/components/myvolumio/signup/myvolumio-signup.html',
         controller: 'MyVolumioSignupController',
         controllerAs: 'myVolumioSignupController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireNullUserOrRedirect();
+            }
+          ]
+        }
+      }
+    }
+  })
+
+  .state('myvolumio.access', {
+    url: '/access',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/access/myvolumio-access.html',
+        controller: 'MyVolumioAccessController',
+        controllerAs: 'myVolumioAccessController',
         resolve: {
           user: [
             'authService',
@@ -460,7 +479,7 @@ function routerConfig(
         template: '',
         controller: function($state, uiSettingsService, cloudService) {
           if (cloudService.isOnCloud === true) {
-            $state.go('myvolumio.login');
+            $state.go('myvolumio.access');
             return;
           }
           uiSettingsService.initService().then(data => {

@@ -137,6 +137,10 @@ class MyVolumioSignupController {
     return this.authService.isSocialEnabled();
   }
 
+  goToLogin() {
+    this.$state.go('myvolumio.login');
+  }
+
 }
 
 export default MyVolumioSignupController;
