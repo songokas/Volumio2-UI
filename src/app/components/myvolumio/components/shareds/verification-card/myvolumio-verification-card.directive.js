@@ -55,6 +55,7 @@ class MyVolumioVerificationCardController {
   }
 
   reAuth() {
+    // TODO, handle This operation is sensitive and requires recent authentication
     this.authService.logOut().then(() => {
       this.$state.go('myvolumio.access');
     }).catch((error) => {

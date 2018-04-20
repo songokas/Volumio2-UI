@@ -11,7 +11,7 @@ class MyVolumioChangeSubscriptionController {
     this.stripeCheckout = StripeCheckout;
     this.productsService = productsService;
     this.filteredTranslate = $filter('translate');
-
+    this.$document = $document;
     this.openedModal = {};
 
     this.user = user;

@@ -47,7 +47,7 @@ class AuthService {
   initAuth() {
     var canEnable = this.themeManager.theme === 'volumio' && this.themeManager.variant === 'volumio';
     canEnable = canEnable || this.cloudService.isOnCloud;
-    
+
     if(canEnable){
       this.enableAuth();
     }
@@ -324,7 +324,7 @@ class AuthService {
   }
 
   redirectToEditProfile() {
-    this.$state.go('volumio.edit-profile');
+    this.$state.go('myvolumio.edit-profile');
   }
 
   redirectToVerifyUser() {
