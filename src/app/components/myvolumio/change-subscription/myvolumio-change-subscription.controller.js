@@ -1,5 +1,5 @@
 class MyVolumioChangeSubscriptionController {
-  constructor($scope, $state, $stateParams, $q, authService, user, paymentsService, StripeCheckout, modalService, productsService, $filter) {
+  constructor($scope, $state, $stateParams, $q, authService, user, paymentsService, StripeCheckout, modalService, productsService, $filter, $document) {
     'ngInject';
     this.$scope = $scope;
     this.$state = $state;

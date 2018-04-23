@@ -6,7 +6,7 @@
       <th><span translate="MYVOLUMIO.DEVICE_ENABLED"></span></th>
       <th></th>
     </tr>
-    <tr ng-repeat="device in myVolumioDeviceSelectorController.devices">
+    <tr ng-if="device.name" ng-repeat="device in myVolumioDeviceSelectorController.devices">
       <td>
         {{device.name}}
       </td>
