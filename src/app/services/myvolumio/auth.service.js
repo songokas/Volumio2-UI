@@ -287,7 +287,7 @@ class AuthService {
     }
     if (!this.isUserFilledWithMandatory(user)) {
       validating.reject(this.filteredTranslate('MYVOLUMIO.USER_MISSING_MANDATORY_FIELDS'));
-      this.modalService.openDefaultErrorModal('MYVOLUMIO.USER_MISSING_MANDATORY_FIELDS');
+      //this.modalService.openDefaultErrorModal('MYVOLUMIO.USER_MISSING_MANDATORY_FIELDS');
       this.redirectToEditProfile();
       return;
     }
