@@ -71,9 +71,13 @@
         </button>
       </div>
       <!-- SUBSCRIBE BUTTONS -->
-      <div ng-if="myVolumioPlanCardController.activateSubscribe">
+      <!--<div ng-if="myVolumioPlanCardController.activateSubscribe">
         <stripe-pay-button stripe-product='myVolumioPlanCardController.product' callback='myVolumioPlanCardController.subscriptionCallback(subscribing)' user-id="myVolumioPlanCardController.user.uid" button-label="{{'MYVOLUMIO.SUBSCRIBE' | translate}}" button-class="btn-block"
           user-email="myVolumioPlanCardController.user.email"></stripe-pay-button>
+      </div>-->
+      <div ng-if="myVolumioPlanCardController.activateSubscribe">
+        <paddle-pay-button paddle-product='myVolumioPlanCardController.product' callback='myVolumioPlanCardController.subscriptionCallback(subscribing)' user-id="myVolumioPlanCardController.user.uid" button-label="{{'MYVOLUMIO.SUBSCRIBE' | translate}}" button-class="btn-block"
+          user-email="myVolumioPlanCardController.user.email"></paddle-pay-button>
       </div>
       <div ng-if="myVolumioPlanCardController.activateCancellation">
         <button ng-click="myVolumioPlanCardController.doDowngrade()" type="button" class="btn btn-labeled btn-default">

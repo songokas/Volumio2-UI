@@ -28,6 +28,7 @@ import AngularFireService from './services/myvolumio/angularfire.service';
 import AuthService from './services/myvolumio/auth.service';
 import PaymentsService from './services/myvolumio/payments.service';
 import StripeService from './services/myvolumio/stripe.service';
+import PaddleService from './services/myvolumio/paddle.service';
 import DatabaseService from './services/myvolumio/database.service';
 import ProductsService from './services/myvolumio/products.service';
 import RemoteStorageService from './services/myvolumio/remote-storage.service';
@@ -66,6 +67,7 @@ import PluginAttributesDirective from './plugin/components/plugin-attributes.dir
 import PluginVisibleDirective from './plugin/components/plugin-visible.directive';
 //auth directives
 import StripePayButtonDirective from './components/myvolumio/components/stripe-pay-button/stripe-pay-button.directive';
+import PaddlePayButtonDirective from './components/myvolumio/components/paddle-pay-button/paddle-pay-button.directive';
 import MyVolumioCardDirective from './components/myvolumio/components/card/myvolumio-card.directive';
 import MyVolumioBackButtonDirective from './components/myvolumio/components/shareds/back-button/myvolumio-back-button.directive';
 import PluginComponent from './plugin/components/plugin.component';
@@ -210,6 +212,7 @@ angular.module('volumio', [
   .service('authService', AuthService)
   .service('paymentsService', PaymentsService)
   .service('stripeService', StripeService)
+  .service('paddleService', PaddleService)
   .service('databaseService', DatabaseService)
   .service('productsService', ProductsService)
   .service('remoteStorageService', RemoteStorageService)
@@ -248,6 +251,7 @@ angular.module('volumio', [
 
 //MyVolumio Directives
 .directive('stripePayButton', () => new StripePayButtonDirective())
+  .directive('paddlePayButton', () => new PaddlePayButtonDirective())
   .directive('myVolumioUserCard', () => new MyVolumioCardDirective())
   .directive('myVolumioBackButton', () => new MyVolumioBackButtonDirective())
   .directive('myVolumioAlreadyLogged', () => new MyVolumioAlreadyLoggedDirective())

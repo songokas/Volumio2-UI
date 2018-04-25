@@ -1,6 +1,6 @@
 class AuthService {
   constructor($rootScope, $timeout, $window, angularFireService, $q, $state, databaseService, remoteStorageService,
-    stripeService, $filter, modalService, socketService, $http, $location, themeManager, cloudService) {
+    paymentsService, $filter, modalService, socketService, $http, $location, themeManager, cloudService) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.angularFireService = angularFireService;
@@ -8,7 +8,7 @@ class AuthService {
     this.$state = $state;
     this.databaseService = databaseService;
     this.remoteStorageService = remoteStorageService;
-    this.stripeService = stripeService;
+    this.paymentsService = paymentsService;
     this.filteredTranslate = $filter('translate');
     this.modalService = modalService;
     this.socketService = socketService;
@@ -48,7 +48,7 @@ class AuthService {
     var canEnable = this.themeManager.theme === 'volumio' && this.themeManager.variant === 'volumio';
     canEnable = canEnable || this.cloudService.isOnCloud;
 
-    if(canEnable){
+    if (canEnable) {
       this.enableAuth();
     }
   }
@@ -423,7 +423,7 @@ class AuthService {
   deleteUser(user) {
     if (this.isSubscribedToPlan(user)) {
       var deleting = this.$q.defer();
-      this.stripeService.cancelSubscription(user.subscriptionId, user.uid).then(() => {
+      this.paymentsService.cancelSubscription(user.subscriptionId, user.uid).then(() => {
         this.deleteUserFromFirebase(user).then(() => {
           deleting.resolve();
         });
