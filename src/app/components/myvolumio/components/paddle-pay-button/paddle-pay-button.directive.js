@@ -20,7 +20,7 @@ class PaddlePayButtonDirective {
 }
 
 class PaddlePayButtonController {
-  constructor($rootScope, $scope, $window, $timeout, $q, paymentsService, paddleService) {
+  constructor($rootScope, $scope, $window, $timeout, $q, paymentsService, paddleService, modalService) {
     'ngInject';
     this.$scope = $scope;
     this.$window = $window;
@@ -29,6 +29,7 @@ class PaddlePayButtonController {
     this.paymentsService = paymentsService;
     this.handler = {};
     this.paddleService = paddleService;
+    this.modalService = modalService;
 
     this.btnIconClasses = {
       normal: "glyphicon glyphicon-shopping-cart",
@@ -48,7 +49,6 @@ class PaddlePayButtonController {
   }
 
   init() {
-    this.loadPaddle();
     this.initButtonUI();
   }
 
@@ -56,33 +56,6 @@ class PaddlePayButtonController {
     if (this.buttonLabel === undefined) {
       this.buttonLabel = "Buy now";
     }
-  }
-
-  loadPaddle() {
-    //
-  }
-
-  initButton() {
-    //
-  }
-
-  getPayFunction() {
-    return (token) => {
-      this.startLoading();
-      var payment = this.product;
-      payment['token'] = token;
-      var subscribing = this.$q.defer();
-
-      this.paymentsService.subscribe(payment, this.userId).then((success) => {
-        this.stopLoading();
-        subscribing.resolve(success);
-      }, (error) => {
-        this.stopLoading();
-        subscribing.reject(error);
-      });
-
-      this.callback({ subscribing: subscribing.promise });
-    };
   }
 
   startLoading() {
@@ -101,13 +74,98 @@ class PaddlePayButtonController {
     Paddle.Checkout.open({
       product: this.product.paddleId,
       passthrough: '{"email": "' + this.userEmail + '"}',
-      successCallback: this.successCallback
+      successCallback: this.successCallback,
+      closeCallback: this.closeCallback,
     }, false);
   }
 
   successCallback(data) {
-    console.log(data);
+    if (data.checkout.completed == true) {
+      console.log(data);
+      var checkoutId = data.checkout.id;
+      Paddle.Order.DetailsPopup(data.checkout.id);
+      //TODO
+      this.callback({ subscribing: this.$q.defer.resolve(true) });
+      return;
+    }
+    //TODO
+    this.modalService.openDefaultModalError();
   }
+
+  /*
+
+  {
+    "checkout": {
+        "completed": true,
+        "id": "4451433-chrd10623c1cbd5-c8d37ad479",
+        "coupon": null,
+        "prices": {
+            "customer": {
+                "currency": "USD",
+                "unit": "9.99",
+                "total": "9.99"
+            },
+            "vendor": {
+                "currency": "USD",
+                "unit": "9.99",
+                "total": "9.99"
+            }
+        },
+        "passthrough": null,
+        "redirect_url": null
+    },
+    "product": {
+        "quantity": 1,
+        "id": "1234567",
+        "name": "My Product"
+    },
+    "user": {
+        "country": "GB",
+        "email": "christian@paddle.com",
+        "id": "29777"
+    }
+}
+
+*/
+
+  closeCallback(error) {
+    console.log(error);
+    this.modalService.openDefaultModalError();
+  }
+
+  /*
+{
+    "checkout": {
+        "completed": false,
+        "id": "4459220-chra432325e67421-fe2f8d232a",
+        "coupon": null,
+        "prices": {
+            "customer": {
+                "currency": "GBP",
+                "unit": "34.95",
+                "total": "34.95"
+            },
+            "vendor": {
+                "currency": "USD",
+                "unit": "43.82",
+                "total": "43.82"
+            }
+        },
+        "passthrough": null,
+        "redirect_url": null
+    },
+    "product": {
+        "quantity": 1,
+        "id": "1234567",
+        "name": "My Product"
+    },
+    "user": {
+        "country": "GB",
+        "email": "christian@paddle.com",
+        "id": 29777
+    }
+}
+  */
 
 }
 
