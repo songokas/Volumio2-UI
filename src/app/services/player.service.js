@@ -310,6 +310,7 @@ class PlayerService {
         case 'rr':
         case 'bt':
         case 'wma':
+        case 'qobuz':
           this.state.fileFormat = {
             url: this.state.trackType,
             name: this.state.trackType
