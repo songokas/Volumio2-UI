@@ -58,7 +58,7 @@ class PaddleService {
   cancelSubscription(subscriptionId, userId, token) {
         var cancelling = this.$q.defer();
         this.$http({
-            url: 'https://17c1bf11.ngrok.io/myvolumio/us-central1/api/v1/getPaddleCancelUrl',
+            url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/getPaddleCancelUrl',
             method: "POST",
             params: { "token": token, "uid": userId}
           }).then(response => {
