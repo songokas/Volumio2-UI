@@ -38,16 +38,18 @@ class MyVolumioCancelSubscriptionController {
 
   downgradeToFree() {
     if (!this.user.subscriptionId) {
-      this.modalService.openDefaultErrorModal("MYVOLUMIO.CANNOT_DOWNGRADE_NO_PLAN");
       return;
     }
-    this.cancellationCallback(this.paymentsService.cancelSubscription(this.user.subscriptionId, this.user.uid));
+    this.authService.getUserToken().then(token => {
+        this.cancellationCallback(this.paymentsService.cancelSubscription(this.user.subscriptionId, this.user.uid, token));
+    });
+
   }
 
   cancellationCallback(cancelling) {
-    this.openCancellingModal();
+    //this.openCancellingModal();
     cancelling.then((status) => {
-      this.closeCancellingModal();
+      //this.closeCancellingModal();
       if (status === true) {
         this.goToCancellingSuccess();
         return;

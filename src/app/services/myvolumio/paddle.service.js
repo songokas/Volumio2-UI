@@ -1,8 +1,13 @@
 class PaddleService {
-  constructor(modalService) {
+  constructor(angularFireService, modalService, databaseService, $q, $http) {
     'ngInject';
 
+    this.angularFireService = angularFireService;
     this.modalService = modalService;
+    this.databaseService = databaseService;
+    this.$q = $q;
+    this.$http = $http;
+
 
     this.paddleJsUrl = 'https://cdn.paddle.com/paddle/paddle.js';
     this.paddleS2SUrl = '';
@@ -43,28 +48,40 @@ class PaddleService {
   }
 
   subscribe(subscription, userId) {
-    console.log("I M IN THE SUBSCRIBE FUNCTION IN PADDLE SERVICE");
+
   }
 
   getPlanForSubscription(subscriptionId, userId) {
 
   }
 
-  cancelSubscription(subscriptionId, userId) {
-    return this.$http({
-      url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/disableMyVolumioDevice',
-      method: "POST",
-      params: { token: token, uid: this.user.uid, hwuuid: device.hwuuid }
-    }).then(response => {
-      return response.data;
-    });
-  }
+  cancelSubscription(subscriptionId, userId, token) {
+        var cancelling = this.$q.defer();
+        this.$http({
+            url: 'https://17c1bf11.ngrok.io/myvolumio/us-central1/api/v1/getPaddleCancelUrl',
+            method: "POST",
+            params: { "token": token, "uid": userId}
+          }).then(response => {
+            if (response && response.data && response.data.cancelUrl) {
+              var cancelUrl = response.data.cancelUrl;
+              Paddle.Checkout.open({
+                override: cancelUrl,
+                passthrough: {"uid": userId},
+                successCallback: (data)=>{this.cancelling.resolve(true);},
+                closeCallback: ()=>{this.cancelling.reject('');}
+              }, false);
+            } else {
+              this.cancelling.reject('');
+            }
+          });
+          return cancelling.promise;
+}
 
-  updateSubscription(planCode, userId) {
+  updateSubscription(planCode, userId, token) {
     return this.$http({
       url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/disableMyVolumioDevice',
       method: "POST",
-      params: { token: token, uid: this.user.uid, hwuuid: device.hwuuid }
+      params: {"token": token, "uid": userId}
     }).then(response => {
       return response.data;
     });

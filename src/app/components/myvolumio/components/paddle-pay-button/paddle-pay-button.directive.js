@@ -73,7 +73,8 @@ class PaddlePayButtonController {
   handlePayment() {
     Paddle.Checkout.open({
       product: this.product.paddleId,
-      passthrough: '{"email": "' + this.userEmail + '"}',
+      email: this.userEmail,
+      passthrough: {"email": this.userEmail, "uid": this.userId },
       successCallback: this.successCallback,
       closeCallback: this.closeCallback,
     }, false);

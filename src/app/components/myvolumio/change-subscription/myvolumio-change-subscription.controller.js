@@ -47,7 +47,9 @@ class MyVolumioChangeSubscriptionController {
       this.modalService.openDefaultErrorModal("MYVOLUMIO.ERROR_CHANGE_PLAN_NO_PLAN_SELECTED");
       return;
     }
-    this.updateCallback(this.paymentsService.updateSubscription(this.product.planCode, this.user.uid));
+    this.authService.getUserToken().then(token => {
+      this.updateCallback(this.paymentsService.updateSubscription(this.product.planCode, this.user.uid, token));
+    });
   }
 
   updateCallback(cancelling) {

@@ -22,12 +22,12 @@ class PaymentsService {
     return this.paddleService.subscribe(subscription, userId);
   }
 
-  cancelSubscription(subscriptionId, userId) {
-    return this.paddleService.cancelSubscription(subscriptionId, userId);
+  cancelSubscription(subscriptionId, userId, token) {
+    return this.paddleService.cancelSubscription(subscriptionId, userId, token);
   }
 
-  updateSubscription(planCode, userId) {
-    return this.paddleService.updateSubscription(planCode, userId);
+  updateSubscription(planCode, userId, token) {
+    return this.paddleService.updateSubscription(planCode, userId, token);
   }
 
 }
