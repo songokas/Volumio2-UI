@@ -103,8 +103,8 @@ class MyVolumioDeviceSelectorController {
 
   doEnableDevice(device) {
     var deviceObj = this.sanitizeAngularfireObject(device);
-    console.log("doEnableDevice", deviceObj);
-    this.socketService.emit('enableMyVolumioDevice', deviceObj);
+    //this.socketService.emit('enableMyVolumioDevice', deviceObj);
+      this.doEnableDeviceApiCall(device);
   }
 
   getCurrentActiveDevices() {
@@ -132,6 +132,19 @@ class MyVolumioDeviceSelectorController {
     return this.authService.getUserToken().then(token => {
       return this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/disableMyVolumioDevice',
+        method: "POST",
+        params: { token: token, uid: this.user.uid, hwuuid: device.hwuuid }
+      }).then(response => {
+        return response.data;
+      });
+    });
+  }
+
+  doEnableDeviceApiCall(device) {
+    console.log("doDisableDevice", device);
+    return this.authService.getUserToken().then(token => {
+      return this.$http({
+        url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/enableMyVolumioDevice',
         method: "POST",
         params: { token: token, uid: this.user.uid, hwuuid: device.hwuuid }
       }).then(response => {
