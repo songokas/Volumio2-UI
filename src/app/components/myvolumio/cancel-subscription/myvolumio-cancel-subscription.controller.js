@@ -56,10 +56,10 @@ class MyVolumioCancelSubscriptionController {
       }
       this.goToCancellingFail();
     }).catch((error) => {
-      this.closeCancellingModal();
-      this.modalService.openDefaultErrorModal(error, () => {
-        this.goToCancellingFail();
-      });
+      //this.closeCancellingModal();
+      //this.modalService.openDefaultErrorModal(error, () => {
+      //  this.goToCancellingFail();
+      //});
     });
   }
 

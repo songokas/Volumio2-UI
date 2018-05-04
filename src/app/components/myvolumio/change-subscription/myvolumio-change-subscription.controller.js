@@ -48,7 +48,8 @@ class MyVolumioChangeSubscriptionController {
       return;
     }
     this.authService.getUserToken().then(token => {
-      this.updateCallback(this.paymentsService.updateSubscription(this.product.planCode, this.user.uid, token));
+      console.log(this.product)
+      this.updateCallback(this.paymentsService.updateSubscription(this.product, this.user.uid, token));
     });
   }
 
@@ -62,7 +63,7 @@ class MyVolumioChangeSubscriptionController {
       }
       this.goToUpdatingFail();
     }).catch((error) => {
-      console.log("ERRORRRR");
+      console.log(error);
       this.closeUpdatingModal();
       this.modalService.openDefaultErrorModal(error, () => {
         this.goToUpdatingFail();
