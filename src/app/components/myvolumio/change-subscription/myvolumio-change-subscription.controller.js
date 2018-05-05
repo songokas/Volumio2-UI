@@ -39,7 +39,7 @@ class MyVolumioChangeSubscriptionController {
   }
 
   changePlan() {
-    if (this.user.subscriptionId === undefined || this.user.subscriptionId === null) {
+    if (this.user.planData.subscriptionId === undefined || this.user.planData.subscriptionId === null) {
       this.modalService.openDefaultErrorModal("MYVOLUMIO.ERROR_CHANGE_PLAN_NO_PREVIOUS_PLAN_FOUND");
       return;
     }
@@ -49,10 +49,17 @@ class MyVolumioChangeSubscriptionController {
     }
     this.authService.getUserToken().then(token => {
       console.log(this.product)
-      this.updateCallback(this.paymentsService.updateSubscription(this.product, this.user.uid, token));
+      this.paymentsService.updateSubscription(this.product, this.user.uid, token)
+        .then(success => {
+          this.goToUpdatingSuccess();
+        })
+        .catch(error => {
+          this.goToUpdatingFail();
+        });
     });
   }
 
+  /*
   updateCallback(cancelling) {
     this.openUpdatingModal();
     cancelling.then((status) => {
@@ -87,7 +94,7 @@ class MyVolumioChangeSubscriptionController {
 
   closeUpdatingModal() {
     this.openedModal.close();
-  }
+  }*/
 
   goToUpdatingSuccess() {
     this.$state.go('myvolumio.payment-success');

@@ -329,6 +329,8 @@
     "ERROR": "Error",
     "ERROR_VALIDATION_TERMS_UNACCEPTED": "Please accept the Terms of Service",
     "ERROR_VALIDATION_PASSWORD_MATCH": "Password do not match",
-    "ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL": "Account already exist by a different login provider."
+    "ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL": "Account already exist by a different login provider.",
+    "CANCELLATION_FAILED": "CANCELLATION_FAILED",
+    "NO_SUBSCRIPTION": "NO_SUBSCRIPTION"
   }
 }

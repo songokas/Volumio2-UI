@@ -20,15 +20,15 @@ class PaddlePayButtonDirective {
 }
 
 class PaddlePayButtonController {
-  constructor($rootScope, $scope, $window, $timeout, $q, paymentsService, paddleService, modalService) {
+  constructor($rootScope, $scope, $window, $timeout, $q, $state, paymentsService, modalService) {
     'ngInject';
     this.$scope = $scope;
     this.$window = $window;
     this.$timeout = $timeout;
     this.$q = $q;
+    this.$state = $state;
     this.paymentsService = paymentsService;
     this.handler = {};
-    this.paddleService = paddleService;
     this.modalService = modalService;
 
     this.btnIconClasses = {
@@ -74,7 +74,7 @@ class PaddlePayButtonController {
     Paddle.Checkout.open({
       product: this.product.paddleId,
       email: this.userEmail,
-      passthrough: {"email": this.userEmail, "uid": this.userId },
+      passthrough: { "email": this.userEmail, "uid": this.userId },
       successCallback: this.successCallback,
       closeCallback: this.closeCallback,
     }, false);
@@ -84,9 +84,8 @@ class PaddlePayButtonController {
     if (data.checkout.completed == true) {
       console.log(data);
       var checkoutId = data.checkout.id;
-      Paddle.Order.DetailsPopup(data.checkout.id);
-      //TODO
-      this.callback({ subscribing: this.$q.defer.resolve(true) });
+      //Paddle.Order.DetailsPopup(data.checkout.id);
+      this.$state.go('myvolumio.payment-success');
       return;
     }
     //TODO
