@@ -241,7 +241,7 @@
     "PAYMENT_SUCCESS": "Payment successful",
     "PAYMENT_FAIL": "Payment failed",
     "PLANS": "Plans",
-    "BACK_TO_PLANS":"Return to plans",
+    "BACK_TO_PLANS": "Return to plans",
     "PROFILE": "Profile",
     "RECOVER_PASSWORD": "Recover password",
     "PASSWORD_RESET": "Reset password",
@@ -325,9 +325,10 @@
     "ACCESS": "Access",
     "REGISTER_NOW_FOR": "Register now for",
     "ALREADY_HAVE_ACCOUNT": "Already have an account?",
-    "USER_MISSING_MANDATORY_FIELDS":"Please fill all the required fields",
-    "ERROR":"Error",
-    "ERROR_VALIDATION_TERMS_UNACCEPTED":"Please accept the Terms of Service",
-    "ERROR_VALIDATION_PASSWORD_MATCH":"Password do not match"
+    "USER_MISSING_MANDATORY_FIELDS": "Please fill all the required fields",
+    "ERROR": "Error",
+    "ERROR_VALIDATION_TERMS_UNACCEPTED": "Please accept the Terms of Service",
+    "ERROR_VALIDATION_PASSWORD_MATCH": "Password do not match",
+    "ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL": "Account already exist by a different login provider."
   }
 }

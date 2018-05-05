@@ -60,7 +60,7 @@ class MyVolumioAccessController {
   }
 
   setRandomBg() {
-    var bgImagesList = ['live.jpg','rehersal.jpg'];
+    var bgImagesList = ['live.jpg', 'rehersal.jpg'];
     var bgImg = bgImagesList[Math.floor(Math.random() * bgImagesList.length)];
     this.$document[0].body.style.background = `#333 url("https://cdn.volumio.org/myvolumiobg/${bgImg}") no-repeat center center`;
     this.$document[0].body.style.backgroundSize = 'cover';

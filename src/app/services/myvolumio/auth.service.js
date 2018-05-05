@@ -231,7 +231,7 @@ class AuthService {
     //facebook, google, github, ...
     return this.angularFireService.loginWithProvider(provider).then(() => {
       this.isJustFeLogged = true;
-    });
+    }).catch(error => alert(error));
   }
 
   loginWithToken(token) {

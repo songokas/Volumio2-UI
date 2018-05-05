@@ -92,6 +92,25 @@ class AngularFireService {
         this.modalService.openDefaultErrorModal(error);
       });
     }, this);
+
+    firebase.auth().getRedirectResult().then(function(result) {
+      //do nothing as we need this just for catching errors
+    }).catch((error) => {
+      this.modalService.openDefaultErrorModal("MYVOLUMIO.ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL");
+      if (error.code == 'auth/account-exists-with-different-credential') {
+        var email = error.email;
+        firebase.auth().fetchProvidersForEmail(email)
+          .then(providers => {
+            console.log(providers);
+            /*firebase.auth().signInWithCredential( ... )
+              .then(result => {
+                var user = result.user;
+                user.linkWithCredential(error.credential)
+              })
+              .catch(error => console.log(error))*/
+          });
+      }
+    });
   }
 
   requireUser() {
@@ -219,13 +238,11 @@ class AngularFireService {
   loginWithProvider(provider) { //social login works as signup too
     //$signInWithPopup could be an alternative flow to the following
     var logging = this.$q.defer();
-    this.authService.$signInWithRedirect(provider).then(() => {
+
+    return this.authService.$signInWithRedirect(provider).then(() => {
       // Never called because of page redirect
       // Instead, look at $onAuthStateChanged() to detect successful authentication
-    }).catch((error) => {
-      logging.reject(error);
     });
-    return logging.promise;
   }
 
   loginWithToken(token) {
