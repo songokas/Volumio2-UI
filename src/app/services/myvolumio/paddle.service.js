@@ -56,57 +56,55 @@ class PaddleService {
   }
 
   updateSubscription(newPlan, userId, token) {
-        var updating = this.$q.defer();
-        var newPlanId = newPlan.paddleId;
-        var subscription = this.executeUpdateSuscription(newPlanId, userId, token);
-        subscription.then((response)=> {
-          if (response && response.data && response.data.planData) {
-              var planData = response.data.planData;
-              Paddle.Checkout.open({
-                override: planData.updateUrl,
-                passthrough: {"uid": userId},
-                subscription_id: planData.subscriptionId,
-                plan_id: newPlan.paddleId,
-                successCallback: (data)=>{updating.resolve(true);},
-                closeCallback: ()=>{updating.reject('');}
-              }, false);
-            } else {
-              updating.reject('');
-            }
-        }).catch((error) => {
-          updating.reject('');
-        });
-        return updating.promise;
+    var updating = this.$q.defer();
+    var newPlanId = newPlan.paddleId;
+    var subscription = this.executeUpdateSuscription(newPlanId, userId, token);
+    subscription.then((response) => {
+      if (response && response.data && response.data.success == true) {
+        updating.resolve(true);
+      } else {
+        debugger;
+        updating.reject(response.data.error.message);
+      }
+    }).catch((error) => {
+      updating.reject('');
+    });
+    return updating.promise;
   }
 
   cancelSubscription(subscriptionId, userId, token) {
-        var cancelling = this.$q.defer();
-        var subscription = this.getSubscriptionCancelUrl(userId, token);
-        subscription.then((response)=> {
-          if (response && response.data && response.data.cancelUrl) {
-              var cancelUrl = response.data.cancelUrl;
-              Paddle.Checkout.open({
-                override: cancelUrl,
-                passthrough: {"uid": userId},
-                successCallback: (data)=>{cancelling.resolve(true);},
-                closeCallback: ()=>{cancelling.reject('');}
-              }, false);
-            } else {
-              cancelling.reject('');
-            }
-        }).catch((error) => {
-          cancelling.reject('');
-        });
-        return cancelling.promise;
- }
+    var cancelling = this.$q.defer();
+    var subscription = this.getSubscriptionCancelUrl(userId, token);
+    subscription.then((response) => {
+      if (response && response.data && response.data.cancelUrl) {
+        var cancelUrl = response.data.cancelUrl;
+        Paddle.Checkout.open({
+          override: cancelUrl,
+          passthrough: { "uid": userId },
+          successCallback: (data) => {
+            debugger;
+            cancelling.resolve(true);
+          },
+          closeCallback: (error) => {
+            cancelling.reject('');
+          }
+        }, false);
+      } else {
+        cancelling.reject('');
+      }
+    }).catch((error) => {
+      cancelling.reject(error);
+    });
+    return cancelling.promise;
+  }
 
-getSubscriptionCancelUrl(userId, token) {
-  let promise = new Promise((resolve, reject) => {
-    this.$http({
-      url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/getSubscriptionCancelUrl',
-      method: "POST",
-      params: {"token": token, "uid": userId}
-    }).then(
+  getSubscriptionCancelUrl(userId, token) {
+    let promise = new Promise((resolve, reject) => {
+      this.$http({
+        url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/getSubscriptionCancelUrl',
+        method: "POST",
+        params: { "token": token, "uid": userId }
+      }).then(
         res => {
           resolve(res);
         },
@@ -114,19 +112,19 @@ getSubscriptionCancelUrl(userId, token) {
           reject(msg);
         }
       )
-  });
-  return promise;
- }
+    });
+    return promise;
+  }
 
 
-executeUpdateSuscription(newPlan, userId, token) {
+  executeUpdateSuscription(newPlan, userId, token) {
 
-  let promise = new Promise((resolve, reject) => {
-    this.$http({
-      url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/updateSubscription',
-      method: "POST",
-      params: {"token": token, "uid": userId, "newPlan": newPlan}
-    }).then(
+    let promise = new Promise((resolve, reject) => {
+      this.$http({
+        url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/updateSubscription',
+        method: "POST",
+        params: { "token": token, "uid": userId, "newPlan": newPlan }
+      }).then(
         res => {
           console.log(res)
           resolve(res);
@@ -135,9 +133,9 @@ executeUpdateSuscription(newPlan, userId, token) {
           reject(msg);
         }
       )
-  });
-  return promise;
- }
+    });
+    return promise;
+  }
 
 
 }
