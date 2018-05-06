@@ -74,26 +74,16 @@ class PaddleService {
 
   cancelSubscription(subscriptionId, userId, token) {
     var cancelling = this.$q.defer();
-    var subscription = this.getSubscriptionCancelUrl(userId, token);
-    subscription.then((response) => {
-      if (response && response.data && response.data.cancelUrl) {
-        var cancelUrl = response.data.cancelUrl;
-        Paddle.Checkout.open({
-          override: cancelUrl,
-          passthrough: { "uid": userId },
-          successCallback: (data) => {
-            debugger;
-            cancelling.resolve(true);
-          },
-          closeCallback: (error) => {
-            cancelling.reject('');
-          }
-        }, false);
+    var cancelSubscription = this.executeCancelSuscription(subscriptionId, userId, token);
+    cancelSubscription.then((response) => {
+      if (response && response.data && response.data.success == true) {
+        cancelling.resolve(true);
       } else {
-        cancelling.reject('');
+        debugger;
+        cancelling.reject(response.data.error.message);
       }
     }).catch((error) => {
-      cancelling.reject(error);
+      cancelling.reject('');
     });
     return cancelling.promise;
   }
@@ -103,7 +93,7 @@ class PaddleService {
       this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/getSubscriptionCancelUrl',
         method: "POST",
-        params: { "token": token, "uid": userId }
+        params: { "token": token, "uid": userId}
       }).then(
         res => {
           resolve(res);
@@ -130,6 +120,27 @@ class PaddleService {
           resolve(res);
         },
         msg => {
+          reject(msg);
+        }
+      )
+    });
+    return promise;
+  }
+
+  executeCancelSuscription(subscriptionId, userId, token) {
+
+    let promise = new Promise((resolve, reject) => {
+      this.$http({
+        url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/cancelSubscription',
+        method: "POST",
+        params: { "token": token, "uid": userId, "subscriptionId": subscriptionId}
+      }).then(
+        res => {
+          console.log(res)
+          resolve(res);
+        },
+        msg => {
+          console.log(msg)
           reject(msg);
         }
       )
