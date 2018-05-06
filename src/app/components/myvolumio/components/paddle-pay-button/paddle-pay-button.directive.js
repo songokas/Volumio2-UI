@@ -75,8 +75,12 @@ class PaddlePayButtonController {
       product: this.product.paddleId,
       email: this.userEmail,
       passthrough: { "email": this.userEmail, "uid": this.userId },
-      successCallback: this.successCallback,
-      closeCallback: this.closeCallback,
+      successCallback: (data) => {
+        this.successCallback(data)
+      },
+      closeCallback: (data) => {
+        this.closeCallback(data);
+      },
     }, false);
   }
 
@@ -89,83 +93,12 @@ class PaddlePayButtonController {
       return;
     }
     //TODO
-    this.modalService.openDefaultModalError();
+    this.modalService.openDefaultErrorModal('MYVOLUMIO.PAYMENT_FAIL');
   }
-
-  /*
-
-  {
-    "checkout": {
-        "completed": true,
-        "id": "4451433-chrd10623c1cbd5-c8d37ad479",
-        "coupon": null,
-        "prices": {
-            "customer": {
-                "currency": "USD",
-                "unit": "9.99",
-                "total": "9.99"
-            },
-            "vendor": {
-                "currency": "USD",
-                "unit": "9.99",
-                "total": "9.99"
-            }
-        },
-        "passthrough": null,
-        "redirect_url": null
-    },
-    "product": {
-        "quantity": 1,
-        "id": "1234567",
-        "name": "My Product"
-    },
-    "user": {
-        "country": "GB",
-        "email": "christian@paddle.com",
-        "id": "29777"
-    }
-}
-
-*/
 
   closeCallback(error) {
-    console.log(error);
-    this.modalService.openDefaultModalError();
+    this.modalService.openDefaultErrorModal('MYVOLUMIO.COMPLETE_CHECKOUT');
   }
-
-  /*
-{
-    "checkout": {
-        "completed": false,
-        "id": "4459220-chra432325e67421-fe2f8d232a",
-        "coupon": null,
-        "prices": {
-            "customer": {
-                "currency": "GBP",
-                "unit": "34.95",
-                "total": "34.95"
-            },
-            "vendor": {
-                "currency": "USD",
-                "unit": "43.82",
-                "total": "43.82"
-            }
-        },
-        "passthrough": null,
-        "redirect_url": null
-    },
-    "product": {
-        "quantity": 1,
-        "id": "1234567",
-        "name": "My Product"
-    },
-    "user": {
-        "country": "GB",
-        "email": "christian@paddle.com",
-        "id": 29777
-    }
-}
-  */
 
 }
 
