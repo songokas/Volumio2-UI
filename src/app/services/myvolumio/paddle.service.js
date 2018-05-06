@@ -63,18 +63,17 @@ class PaddleService {
       if (response && response.data && response.data.success == true) {
         updating.resolve(true);
       } else {
-        debugger;
         updating.reject(response.data.error.message);
       }
     }).catch((error) => {
-      updating.reject('');
+      updating.reject(error);
     });
     return updating.promise;
   }
 
   cancelSubscription(subscriptionId, userId, token) {
     var cancelling = this.$q.defer();
-    var cancelSubscription = this.executeCancelSuscription(subscriptionId, userId, token);
+    var cancelSubscription = this.executeCancelSubscription(subscriptionId, userId, token);
     cancelSubscription.then((response) => {
       if (response && response.data && response.data.success == true) {
         cancelling.resolve(true);
@@ -127,7 +126,7 @@ class PaddleService {
     return promise;
   }
 
-  executeCancelSuscription(subscriptionId, userId, token) {
+  executeCancelSubscription(subscriptionId, userId, token) {
 
     let promise = new Promise((resolve, reject) => {
       this.$http({
