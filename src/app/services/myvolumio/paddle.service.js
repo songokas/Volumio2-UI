@@ -42,7 +42,7 @@ class PaddleService {
   initPaddle() {
     Paddle.Setup({
       vendor: this.paddleVendorId,
-      debug: true
+      debug: false
     });
     this.isInit = true;
   }
