@@ -43,7 +43,7 @@ class MyVolumioCancelSubscriptionController {
     }
     this.openCancellingModal();
     this.authService.getUserToken().then(token => {
-      this.paymentsService.cancelSubscription(this.user.subscriptionId, this.user.uid, token)
+      this.paymentsService.cancelSubscription(this.user.uid, token)
         .then((success) => {
           this.closeCancellingModal();
           this.$state.go('myvolumio.payment-success');

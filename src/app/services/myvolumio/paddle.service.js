@@ -71,9 +71,9 @@ class PaddleService {
     return updating.promise;
   }
 
-  cancelSubscription(subscriptionId, userId, token) {
+  cancelSubscription(userId, token) {
     var cancelling = this.$q.defer();
-    var cancelSubscription = this.executeCancelSubscription(subscriptionId, userId, token);
+    var cancelSubscription = this.executeCancelSubscription(userId, token);
     cancelSubscription.then((response) => {
       if (response && response.data && response.data.success == true) {
         cancelling.resolve(true);
@@ -126,20 +126,17 @@ class PaddleService {
     return promise;
   }
 
-  executeCancelSubscription(subscriptionId, userId, token) {
-
+  executeCancelSubscription(userId, token) {
     let promise = new Promise((resolve, reject) => {
       this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/cancelSubscription',
         method: "POST",
-        params: { "token": token, "uid": userId, "subscriptionId": subscriptionId}
+        params: { "token": token, "uid": userId}
       }).then(
         res => {
-          console.log(res)
           resolve(res);
         },
         msg => {
-          console.log(msg)
           reject(msg);
         }
       )
