@@ -47,13 +47,15 @@ class MyVolumioChangeSubscriptionController {
       this.modalService.openDefaultErrorModal("MYVOLUMIO.ERROR_CHANGE_PLAN_NO_PLAN_SELECTED");
       return;
     }
+    this.openUpdatingModal();
     this.authService.getUserToken().then(token => {
-      console.log(this.product)
       this.paymentsService.updateSubscription(this.product, this.user.uid, token)
         .then(success => {
+          this.closeUpdatingModal();
           this.goToUpdatingSuccess();
         })
         .catch(error => {
+          this.closeUpdatingModal();
           this.goToUpdatingFail();
         });
     });
@@ -76,7 +78,7 @@ class MyVolumioChangeSubscriptionController {
         this.goToUpdatingFail();
       });
     });
-  }
+  }*/
 
   openUpdatingModal() {
     let
@@ -94,7 +96,7 @@ class MyVolumioChangeSubscriptionController {
 
   closeUpdatingModal() {
     this.openedModal.close();
-  }*/
+  }
 
   goToUpdatingSuccess() {
     this.$state.go('myvolumio.payment-success');

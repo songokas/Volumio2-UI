@@ -63,34 +63,23 @@ class PaddleService {
       if (response && response.data && response.data.success == true) {
         updating.resolve(true);
       } else {
-        debugger;
         updating.reject(response.data.error.message);
       }
     }).catch((error) => {
-      updating.reject('');
+      updating.reject(error);
     });
     return updating.promise;
   }
 
   cancelSubscription(subscriptionId, userId, token) {
     var cancelling = this.$q.defer();
-    var subscription = this.getSubscriptionCancelUrl(userId, token);
+    // var newPlanId = newPlan.paddleId;
+    var subscription = this.executeCancelSuscription(subscriptionId, userId, token);
     subscription.then((response) => {
-      if (response && response.data && response.data.cancelUrl) {
-        var cancelUrl = response.data.cancelUrl;
-        Paddle.Checkout.open({
-          override: cancelUrl,
-          passthrough: { "uid": userId },
-          successCallback: (data) => {
-            debugger;
-            cancelling.resolve(true);
-          },
-          closeCallback: (error) => {
-            cancelling.reject('');
-          }
-        }, false);
+      if (response && response.data && response.data.success == true) {
+        cancelling.resolve(true);
       } else {
-        cancelling.reject('');
+        cancelling.reject(response.data.error.message);
       }
     }).catch((error) => {
       cancelling.reject(error);
@@ -122,6 +111,26 @@ class PaddleService {
     let promise = new Promise((resolve, reject) => {
       this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/updateSubscription',
+        method: "POST",
+        params: { "token": token, "uid": userId, "newPlan": newPlan }
+      }).then(
+        res => {
+          console.log(res)
+          resolve(res);
+        },
+        msg => {
+          reject(msg);
+        }
+      )
+    });
+    return promise;
+  }
+
+  executeCancelSuscription(newPlan, userId, token) {
+
+    let promise = new Promise((resolve, reject) => {
+      this.$http({
+        url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/cancelSubscription',
         method: "POST",
         params: { "token": token, "uid": userId, "newPlan": newPlan }
       }).then(
