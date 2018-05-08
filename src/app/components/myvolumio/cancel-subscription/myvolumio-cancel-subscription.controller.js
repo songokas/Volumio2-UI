@@ -41,19 +41,20 @@ class MyVolumioCancelSubscriptionController {
       this.modalService.openDefaultErrorModal("MYVOLUMIO.NO_SUBSCRIPTION");
       return;
     }
-    this.openCancellingModal();
-    this.authService.getUserToken().then(token => {
-      this.paymentsService.cancelSubscription(this.user.uid, token)
-        .then((success) => {
-          this.closeCancellingModal();
-          this.$state.go('myvolumio.payment-success');
-        })
-        .catch(error => {
-          this.closeCancellingModal();
-          this.modalService.openDefaultErrorModal("MYVOLUMIO.CANCELLATION_FAILED");
-        });
+    this.modalService.openDefaultConfirm('MYVOLUMIO.CONFIRM_CANCEL_PLAN_TITLE', 'MYVOLUMIO.CONFIRM_CANCEL_PLAN', () => {
+      this.openCancellingModal();
+      this.authService.getUserToken().then(token => {
+        this.paymentsService.cancelSubscription(this.user.uid, token)
+          .then((success) => {
+            this.closeCancellingModal();
+            this.$state.go('myvolumio.payment-success');
+          })
+          .catch(error => {
+            this.closeCancellingModal();
+            this.modalService.openDefaultErrorModal("MYVOLUMIO.CANCELLATION_FAILED");
+          });
+      });
     });
-
   }
 
   /*  cancellationCallback(cancelling) {
