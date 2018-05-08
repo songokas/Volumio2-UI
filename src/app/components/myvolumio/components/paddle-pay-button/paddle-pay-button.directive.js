@@ -76,7 +76,7 @@ class PaddlePayButtonController {
       email: this.userEmail,
       passthrough: { "email": this.userEmail, "uid": this.userId },
       successCallback: (data) => {
-        this.successCallback(data)
+        this.successCallback(data);
       },
       closeCallback: (data) => {
         this.closeCallback(data);

@@ -92,7 +92,7 @@ class PaddleService {
       this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/getSubscriptionCancelUrl',
         method: "POST",
-        params: { "token": token, "uid": userId}
+        params: { "token": token, "uid": userId }
       }).then(
         res => {
           resolve(res);
@@ -100,7 +100,7 @@ class PaddleService {
         msg => {
           reject(msg);
         }
-      )
+      );
     });
     return promise;
   }
@@ -115,13 +115,12 @@ class PaddleService {
         params: { "token": token, "uid": userId, "newPlan": newPlan }
       }).then(
         res => {
-          console.log(res)
           resolve(res);
         },
         msg => {
           reject(msg);
         }
-      )
+      );
     });
     return promise;
   }
@@ -131,7 +130,7 @@ class PaddleService {
       this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/cancelSubscription',
         method: "POST",
-        params: { "token": token, "uid": userId}
+        params: { "token": token, "uid": userId }
       }).then(
         res => {
           resolve(res);
@@ -139,7 +138,7 @@ class PaddleService {
         msg => {
           reject(msg);
         }
-      )
+      );
     });
     return promise;
   }

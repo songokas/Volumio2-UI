@@ -93,13 +93,13 @@ class AngularFireService {
       });
     }, this);
 
-    firebase.auth().getRedirectResult().then(function(result) {
+    this.firebase.auth().getRedirectResult().then(function(result) {
       //do nothing as we need this just for catching errors
     }).catch((error) => {
       this.modalService.openDefaultErrorModal("MYVOLUMIO.ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL");
-      if (error.code == 'auth/account-exists-with-different-credential') {
+      if (error.code === 'auth/account-exists-with-different-credential') {
         var email = error.email;
-        firebase.auth().fetchProvidersForEmail(email)
+        this.firebase.auth().fetchProvidersForEmail(email)
           .then(providers => {
             console.log(providers);
             /*firebase.auth().signInWithCredential( ... )
