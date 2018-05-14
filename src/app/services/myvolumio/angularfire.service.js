@@ -96,19 +96,31 @@ class AngularFireService {
     this.firebase.auth().getRedirectResult().then(function(result) {
       //do nothing as we need this just for catching errors
     }).catch((error) => {
-      this.modalService.openDefaultErrorModal("MYVOLUMIO.ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL");
       if (error.code === 'auth/account-exists-with-different-credential') {
-        var email = error.email;
-        this.firebase.auth().fetchProvidersForEmail(email)
-          .then(providers => {
-            console.log(providers);
-            /*firebase.auth().signInWithCredential( ... )
-              .then(result => {
-                var user = result.user;
-                user.linkWithCredential(error.credential)
-              })
-              .catch(error => console.log(error))*/
-          });
+        console.log(error);
+        this.modalService.openDefaultErrorModal("MYVOLUMIO.ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL", () => {
+          var email = error.email;
+          this.firebase.auth().fetchProvidersForEmail(email)
+            .then(providers => {
+              console.log(providers);
+              //check to see what provider
+              if (providers.indexOf("google.com") != -1) {
+                this.loginWithProvider('google');
+              }
+              if (providers.indexOf("facebook.com") != -1) {
+                this.loginWithProvider('facebook');
+              }
+              if (providers.indexOf("github.com") != -1) {
+                this.loginWithProvider('github');
+              }
+              /*firebase.auth().signInWithCredential( ... )
+                .then(result => {
+                  var user = result.user;
+                  user.linkWithCredential(error.credential)
+                })
+                .catch(error => console.log(error))*/
+            });
+        });
       }
     });
   }
