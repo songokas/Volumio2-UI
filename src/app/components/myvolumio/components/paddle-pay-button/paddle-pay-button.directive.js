@@ -85,15 +85,14 @@ class PaddlePayButtonController {
   }
 
   successCallback(data) {
-    if (data.checkout.completed == true) {
-      console.log(data);
+    if (data.checkout.completed) {
       var checkoutId = data.checkout.id;
       //Paddle.Order.DetailsPopup(data.checkout.id);
       this.$state.go('myvolumio.payment-success');
       return;
+    } else {
+      this.modalService.openDefaultErrorModal('MYVOLUMIO.PAYMENT_FAIL');
     }
-    //TODO
-    this.modalService.openDefaultErrorModal('MYVOLUMIO.PAYMENT_FAIL');
   }
 
   closeCallback(error) {

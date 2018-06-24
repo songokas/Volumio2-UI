@@ -60,7 +60,7 @@ class PaddleService {
     var newPlanId = newPlan.paddleId;
     var subscription = this.executeUpdateSuscription(newPlanId, userId, token);
     subscription.then((response) => {
-      if (response && response.data && response.data.success == true) {
+      if (response && response.data && response.data.success) {
         updating.resolve(true);
       } else {
         updating.reject(response.data.error.message);
@@ -75,7 +75,7 @@ class PaddleService {
     var cancelling = this.$q.defer();
     var cancelSubscription = this.executeCancelSubscription(userId, token);
     cancelSubscription.then((response) => {
-      if (response && response.data && response.data.success == true) {
+      if (response && response.data && response.data.success) {
         cancelling.resolve(true);
       } else {
         debugger;

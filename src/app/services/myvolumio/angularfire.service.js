@@ -104,13 +104,13 @@ class AngularFireService {
             .then(providers => {
               console.log(providers);
               //check to see what provider
-              if (providers.indexOf("google.com") != -1) {
+              if (providers.indexOf("google.com") !== -1) {
                 this.loginWithProvider('google');
               }
-              if (providers.indexOf("facebook.com") != -1) {
+              if (providers.indexOf("facebook.com") !== -1) {
                 this.loginWithProvider('facebook');
               }
-              if (providers.indexOf("github.com") != -1) {
+              if (providers.indexOf("github.com") !== -1) {
                 this.loginWithProvider('github');
               }
               /*firebase.auth().signInWithCredential( ... )
