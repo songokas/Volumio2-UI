@@ -56,6 +56,7 @@ class MyVolumioChangeSubscriptionController {
             this.goToUpdatingSuccess();
           })
           .catch(error => {
+            this.modalService.openDefaultErrorModal(error.data.error.message);
             this.closeUpdatingModal();
             this.goToUpdatingFail();
           });
