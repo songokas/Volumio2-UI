@@ -251,6 +251,7 @@
     "COMPLETE_UPGRADE": "Complete plan upgrade",
     "PAY": "Secure payment",
     "PAY_DESC": "Complete the subscription by paying securely to get your account activated and unleash the full power of MyVolumio right now!",
+    "EDIT_PROFILE":"Edit Profile",
     "SAVE_AVATAR": "Save profile picture",
     "EDIT_AVATAR": "Change profile picture",
     "COMPLETE_YOUR_PROFILE": "Complete your profile informations",
@@ -334,7 +335,7 @@
     "NO_SUBSCRIPTION": "No Valid Subscription found",
     "COMPLETE_CHECKOUT": "Complete checkout",
     "CONFIRM_CHANGE_PLAN_TITLE": "Change Plan",
-    "CONFIRM_CHANGE_PLAN": "Do you really want to change your plan?",
+    "CONFIRM_CHANGE_PLAN": "Do you really want to change your plan? You will be automatically charged with the new plan price difference",
     "CONFIRM_CANCEL_PLAN_TITLE": "Cancel Plan",
     "CONFIRM_CANCEL_PLAN": "Do you really want to cancel your plan?"
   },
