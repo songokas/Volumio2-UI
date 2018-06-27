@@ -337,5 +337,14 @@
     "CONFIRM_CHANGE_PLAN": "Do you really want to change your plan?",
     "CONFIRM_CANCEL_PLAN_TITLE": "Cancel Plan",
     "CONFIRM_CANCEL_PLAN": "Do you really want to cancel your plan?"
+  },
+  "MYVOLUMIO_PLANS": {
+    "LATEST_NEWS": "Receive our MyVolumio News Feed",
+    "MYVOLUMIO_1_DEVICE":"Use MyVolumio on 1 device",
+    "REMOTE_CONNECTION_1_DEVICE":"Use remote connection on 1 device",
+    "QOBUZ_INTEGRATION":"Qobuz Integration",
+    "AUTO_SYNC_FAVOURITES":"Automatic favaourites Sync",
+    "MYVOLUMIO_6_DEVICES":"Use MyVolumio on up to 6 devices",
+    "REMOTE_CONNECTION_6_DEVICES":"Use remote connection on up to devices"
   }
 }
