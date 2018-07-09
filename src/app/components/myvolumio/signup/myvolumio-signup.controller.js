@@ -97,7 +97,6 @@ class MyVolumioSignupController {
     var user = {
       firstName: this.firstName,
       lastName: this.lastName,
-      username: this.username,
       password: this.password,
       email: this.email,
       avatarId: 0,
