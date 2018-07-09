@@ -1,5 +1,5 @@
 function config(theme, variant, $logProvider, toastrConfig, themeManagerProvider, $touchProvider, env,
-        $locationProvider, $httpProvider, $translateProvider, localStorageServiceProvider, StripeCheckoutProvider, CgMailChimpServiceProvider, authServiceProvider) {
+        $locationProvider, $httpProvider, $translateProvider, localStorageServiceProvider, authServiceProvider) {
   'ngInject';
 
   $touchProvider.enabled = true;
@@ -18,14 +18,6 @@ function config(theme, variant, $logProvider, toastrConfig, themeManagerProvider
 
 
   localStorageServiceProvider.setPrefix('volumio');
-  //Mailchimp
-  CgMailChimpServiceProvider.setConfig({
-    username: 'volumio',
-    dc: 'us11',
-    u: '64b4a843c27713ee9da781aa9',
-    id: '030f96ce5c'
-  });
-
 
   //i18n Configs
   $translateProvider

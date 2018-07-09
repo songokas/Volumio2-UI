@@ -163,7 +163,6 @@ angular.module('volumio', [
   'ngFileUpload',
   'pascalprecht.translate',
   'LocalStorageModule',
-  'cg.mailchimp',
   //Angular core modules
   // 'ngAnimate',
   // 'ngCookies',
@@ -172,13 +171,7 @@ angular.module('volumio', [
   'ngLetterAvatar',
   'angular-country-select',
   '720kb.datepicker',
-
-  //firebase module
   'firebase',
-
-  //stripe module
-  'stripe.checkout'
-
 ])
 
 //.constant('', toastr)
