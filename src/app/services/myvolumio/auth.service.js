@@ -22,7 +22,6 @@ class AuthService {
 
     this.user = null;
     this.mandatoryFields = [
-      'username',
       'firstName',
       'lastName'
     ];
