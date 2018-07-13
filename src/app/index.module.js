@@ -172,6 +172,7 @@ angular.module('volumio', [
   'angular-country-select',
   '720kb.datepicker',
   'firebase',
+  'stripe.checkout'
 ])
 
 //.constant('', toastr)

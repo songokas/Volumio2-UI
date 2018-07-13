@@ -1,5 +1,5 @@
 function config(theme, variant, $logProvider, toastrConfig, themeManagerProvider, $touchProvider, env,
-        $locationProvider, $httpProvider, $translateProvider, localStorageServiceProvider, authServiceProvider) {
+        $locationProvider, $httpProvider, $translateProvider, localStorageServiceProvider, StripeCheckoutProvider, authServiceProvider) {
   'ngInject';
 
   $touchProvider.enabled = true;
