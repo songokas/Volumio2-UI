@@ -11,6 +11,7 @@ class DeviceEndpointsService {
     this.authService = authService;
 
     this.hosts = null;
+    this.cloudAutoConnectToLastHwId = true;
   }
 
   initSocket() {
@@ -88,17 +89,19 @@ class DeviceEndpointsService {
   setSocketHosts(hosts) {
     this.hosts = hosts;
     this.socketService.hosts = hosts;
-    //NOTE WARNING: this is commented to prevent empty socket situation
-    //if (!this.cloudService.isOnCloud) {
-
-    const firstHostKey = Object.keys(hosts)[0];
-    this.socketService.host = hosts[firstHostKey];
-    //}
+    if (!this.cloudService.isOnCloud || (this.cloudService.isOnCloud && this.cloudAutoConnectToLastHwId)) {
+      const firstHostKey = Object.keys(hosts)[0];
+      this.socketService.host = hosts[firstHostKey];
+    }
     return true;
   }
 
   isSocketAvalaible() {
     return this.hosts !== null;
+  }
+
+  setCloudAutoConnectValue(value) {
+    this.cloudAutoConnectToLastHwId = value;
   }
 
 }

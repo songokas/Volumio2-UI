@@ -128,7 +128,6 @@ class MyVolumioDeviceSelectorController {
   }
 
   doDisableDeviceApiCall(device) {
-    console.log("doDisableDevice", device);
     return this.authService.getUserToken().then(token => {
       return this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/disableMyVolumioDevice',
@@ -141,7 +140,6 @@ class MyVolumioDeviceSelectorController {
   }
 
   doEnableDeviceApiCall(device) {
-    console.log("doDisableDevice", device);
     return this.authService.getUserToken().then(token => {
       return this.$http({
         url: 'https://us-central1-myvolumio.cloudfunctions.net/api/v1/enableMyVolumioDevice',

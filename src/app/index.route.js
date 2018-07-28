@@ -176,6 +176,7 @@ function routerConfig(
         $document
       ) {
         var initing = $q.defer();
+        deviceEndpointsService.setCloudAutoConnectValue(false);
         $document[0].body.classList.add('myVolumioBkg');
         deviceEndpointsService
           .initSocket()
