@@ -342,10 +342,12 @@
   "MYVOLUMIO_PLANS": {
     "LATEST_NEWS": "Receive our MyVolumio News Feed",
     "MYVOLUMIO_1_DEVICE":"Use MyVolumio on 1 device",
-    "REMOTE_CONNECTION_1_DEVICE":"Use remote connection on 1 device",
+    "REMOTE_CONNECTION_1_DEVICE":"Remote connection to 1 device",
     "QOBUZ_INTEGRATION":"Qobuz Integration",
-    "AUTO_SYNC_FAVOURITES":"Automatic favaourites Sync",
+    "TIDAL_INTEGRATION":"TIDAL Integration",
+    "NATIVE_TIDAL_QOBUZ_INTEGRATION":"Native TIDAL and Qobuz Integration",
+    "AUTO_SYNC":"Automatic Sync of Personal items",
     "MYVOLUMIO_6_DEVICES":"Use MyVolumio on up to 6 devices",
-    "REMOTE_CONNECTION_6_DEVICES":"Use remote connection on up to 6 devices"
+    "REMOTE_CONNECTION_6_DEVICES":"Remote connection to up to 6 devices"
   }
 }
