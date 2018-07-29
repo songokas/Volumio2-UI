@@ -311,6 +311,7 @@ class PlayerService {
         case 'bt':
         case 'wma':
         case 'qobuz':
+        case 'tidal':
           this.state.fileFormat = {
             url: this.state.trackType,
             name: this.state.trackType
