@@ -70,7 +70,7 @@ class UiSettingsService {
   }
 
   setLanguage(lang = null) {
-    console.log("SET LANGUAGE");
+    this.$log.debug('setLanguage');
     if (lang) {
       this.$translate.use(lang);
       return;

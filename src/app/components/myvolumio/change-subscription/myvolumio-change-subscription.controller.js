@@ -64,25 +64,6 @@ class MyVolumioChangeSubscriptionController {
     });
   }
 
-  /*
-  updateCallback(cancelling) {
-    this.openUpdatingModal();
-    cancelling.then((status) => {
-      this.closeUpdatingModal();
-      if (status === true) {
-        this.goToUpdatingSuccess();
-        return;
-      }
-      this.goToUpdatingFail();
-    }).catch((error) => {
-      console.log(error);
-      this.closeUpdatingModal();
-      this.modalService.openDefaultErrorModal(error, () => {
-        this.goToUpdatingFail();
-      });
-    });
-  }*/
-
   openUpdatingModal() {
     let
       templateUrl = 'app/components/myvolumio/modals/myvolumio-paying-modal/myvolumio-paying-modal.html',

@@ -1,5 +1,5 @@
 class PaddleService {
-  constructor(angularFireService, modalService, databaseService, $q, $http) {
+  constructor(angularFireService, modalService, databaseService, $q, $http, $log) {
     'ngInject';
 
     this.angularFireService = angularFireService;
@@ -7,6 +7,7 @@ class PaddleService {
     this.databaseService = databaseService;
     this.$q = $q;
     this.$http = $http;
+    this.$log = $log;
 
 
     this.paddleJsUrl = 'https://cdn.paddle.com/paddle/paddle.js';
@@ -23,7 +24,7 @@ class PaddleService {
       this.isLoaded = true;
       this.initPaddle();
     }).catch(error => {
-      this.modalService.openDefaultErrorModal(error);
+      this.$log.debug('Paddle error: ' + error);
     });
   }
 
