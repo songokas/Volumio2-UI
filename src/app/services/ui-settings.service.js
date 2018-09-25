@@ -51,8 +51,17 @@ class UiSettingsService {
     }
   }
 
-  setLanguage() {
-    this.$log.debug('SetLanguage');
+  setLanguage(lang = null) {
+    this.$log.debug('setLanguage');
+    if (lang) {
+      this.$translate.use(lang);
+      return;
+    }
+    //TODO GET FROM DB
+    if (!this.socketService.isSocketAvalaible()) {
+      this.$translate.use(this.getBrowserDefaultLanguage());
+      return;
+    }
     if (~location.href.indexOf('wizard')) {
       this.browserLanguage = this.getBrowserDefaultLanguage();
     } else {

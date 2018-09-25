@@ -41,6 +41,31 @@ class ModalService {
     return modalInstance;
   }
 
+  openDefaultModal(titleLangKey, descLangKey, callback = null) {
+    var params = {
+      title: this.$filteredTranslate(titleLangKey),
+      message: this.$filteredTranslate(descLangKey),
+      disableCancelButton: true,
+      callback: callback
+    };
+    return this.openModal(undefined, undefined, params);
+  }
+
+  openDefaultConfirm(titleLangKey, descLangKey, callback = null, cancelCallback = null) {
+    var params = {
+      title: this.$filteredTranslate(titleLangKey),
+      message: this.$filteredTranslate(descLangKey),
+      disableCancelButton: false,
+      callback: callback,
+      cancelCallback: cancelCallback
+    };
+    return this.openModal(undefined, undefined, params);
+  }
+
+  openDefaultErrorModal(descLangKey = '', callback = null) {
+    return this.openDefaultModal("MYVOLUMIO.ERROR", descLangKey, callback);
+  }
+
   init() {
     this.registerListner();
     this.initService();

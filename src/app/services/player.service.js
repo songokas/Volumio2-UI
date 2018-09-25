@@ -320,6 +320,8 @@ class PlayerService {
         case 'tidal':
         case 'qobuz':
         case 'wma':
+        case 'qobuz':
+        case 'tidal':
           this.state.fileFormat = {
             url: this.state.trackType,
             name: this.state.trackType

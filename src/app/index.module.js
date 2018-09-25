@@ -20,6 +20,19 @@ import LoggerService from './services/logger.service';
 import MockService from './mock/mock.service';
 import RipperService from './services/ripper.service';
 import UiSettingsService from './services/ui-settings.service';
+import DevService from './services/dev.service';
+import DeviceEndpointsService from './services/device-endpoints.service';
+import CloudService from './services/cloud.service';
+//MyVolumio Services
+import AngularFireService from './services/myvolumio/angularfire.service';
+import AuthService from './services/myvolumio/auth.service';
+import PaymentsService from './services/myvolumio/payments.service';
+import StripeService from './services/myvolumio/stripe.service';
+import PaddleService from './services/myvolumio/paddle.service';
+import DatabaseService from './services/myvolumio/database.service';
+import ProductsService from './services/myvolumio/products.service';
+import RemoteStorageService from './services/myvolumio/remote-storage.service';
+import MyVolumioDevicesService from './services/myvolumio/myvolumio-devices.service';
 
 //Providers
 import ThemeManagerProvider from './services/theme-manager.provider';
@@ -54,6 +67,11 @@ import LightSwitchBtnDirective from './components/light-switch-btn/light-switch-
 //Directives
 import PluginAttributesDirective from './plugin/components/plugin-attributes.directive';
 import PluginVisibleDirective from './plugin/components/plugin-visible.directive';
+//auth directives
+import StripePayButtonDirective from './components/myvolumio/components/stripe-pay-button/stripe-pay-button.directive';
+import PaddlePayButtonDirective from './components/myvolumio/components/paddle-pay-button/paddle-pay-button.directive';
+import MyVolumioCardDirective from './components/myvolumio/components/card/myvolumio-card.directive';
+import MyVolumioBackButtonDirective from './components/myvolumio/components/shareds/back-button/myvolumio-back-button.directive';
 import PluginComponent from './plugin/components/plugin.component';
 
 // Controllers
@@ -105,6 +123,21 @@ import FirmwareUploadPluginController from './plugin/core-plugin/firmware-upload
 import UiSettingsPluginController from './plugin/core-plugin/ui-settings-plugin.controller';
 import MyMusicPluginEnablerController from './plugin/core-plugin/my-music-plugin-enabler-plugin.controller';
 
+//Core plugin: MyVolumio
+import MyVolumioLoginController from './components/myvolumio/login/myvolumio-login.controller';
+import MyVolumioSignupController from './components/myvolumio/signup/myvolumio-signup.controller';
+import MyVolumioProfileController from './components/myvolumio/profile/myvolumio-profile.controller';
+import MyVolumioPlansController from './components/myvolumio/plans/myvolumio-plans.controller';
+import MyVolumioSubscribeController from './components/myvolumio/subscribe/myvolumio-subscribe.controller';
+import MyVolumioPaymentSuccessController from './components/myvolumio/payment-success/myvolumio-payment-success.controller';
+import MyVolumioPaymentFailController from './components/myvolumio/payment-fail/myvolumio-payment-fail.controller';
+import MyVolumioRecoverPasswordController from './components/myvolumio/recover-password/myvolumio-recover-password.controller';
+import MyVolumioEditProfileController from './components/myvolumio/edit-profile/myvolumio-edit-profile.controller';
+import MyVolumioVerifyUserController from './components/myvolumio/verify-user/myvolumio-verify-user.controller';
+import MyVolumioCancelSubscriptionController from './components/myvolumio/cancel-subscription/myvolumio-cancel-subscription.controller';
+import MyVolumioChangeSubscriptionController from './components/myvolumio/change-subscription/myvolumio-change-subscription.controller';
+import MyVolumioCloudSelectDeviceController from './components/myvolumio/select-device/myvolumio-cloud-select-device.controller';
+import MyVolumioAccessController from './components/myvolumio/access/myvolumio-access.controller';
 
 
 angular.module('volumio', [
@@ -132,8 +165,13 @@ angular.module('volumio', [
   // 'ngAnimate',
   // 'ngCookies',
   'ngTouch',
-  'ngSanitize'
-  ])
+  'ngSanitize',
+  'ngLetterAvatar',
+  'angular-country-select',
+  '720kb.datepicker',
+  'firebase',
+  'stripe.checkout'
+])
 
   //.constant('', toastr)
   //.constant('moment', moment)
@@ -158,6 +196,22 @@ angular.module('volumio', [
   .service('mockService', MockService)
   .service('ripperService', RipperService)
   .service('uiSettingsService', UiSettingsService)
+  .service('devService', DevService)
+  .service('deviceEndpointsService', DeviceEndpointsService)
+  .service('cloudService', CloudService)
+  //MyVolumio Services
+  .service('angularFireService', AngularFireService)
+  .service('authService', AuthService)
+  .service('paymentsService', PaymentsService)
+  .service('stripeService', StripeService)
+  .service('paddleService', PaddleService)
+  .service('databaseService', DatabaseService)
+  .service('productsService', ProductsService)
+  .service('remoteStorageService', RemoteStorageService)
+  .service('myVolumioDevicesService', MyVolumioDevicesService)
+
+
+.provider('themeManager', ThemeManagerProvider)
 
 
   .provider('themeManager', ThemeManagerProvider)
@@ -190,7 +244,20 @@ angular.module('volumio', [
   .directive('trackActionsBtn', (themeManager) => new TrackAciotnsBtnDirective(themeManager))
   .directive('lightSwitchBtn', (themeManager) => new LightSwitchBtnDirective(themeManager))
 
-  .controller('HeaderController', HeaderController)
+//MyVolumio Directives
+.directive('stripePayButton', () => new StripePayButtonDirective())
+  .directive('paddlePayButton', () => new PaddlePayButtonDirective())
+  .directive('myVolumioUserCard', () => new MyVolumioCardDirective())
+  .directive('myVolumioBackButton', () => new MyVolumioBackButtonDirective())
+  .directive('myVolumioAlreadyLogged', () => new MyVolumioAlreadyLoggedDirective())
+  .directive('myVolumioCurrentPlanCard', () => new MyVolumioCurrentPlanCardDirective())
+  .directive('myVolumioFileOnChange', () => new MyVolumioFileOnChangeDirective())
+  .directive('myVolumioAvatarImage', () => new MyVolumioAvatarImageDirective())
+  .directive('myVolumioPlanCard', () => new MyVolumioPlanCardDirective())
+  .directive('myVolumioVerificationCard', () => new MyVolumioVerificationCardDirective())
+  .directive('myVolumioDeviceSelector', () => new MyVolumioDeviceSelectorDirective())
+
+.controller('HeaderController', HeaderController)
   .controller('LayoutController', LayoutController)
   .controller('FooterController', FooterController)
 
@@ -237,4 +304,18 @@ angular.module('volumio', [
   .controller('UiSettingsPluginController', UiSettingsPluginController)
   .controller('MyMusicPluginEnablerController', MyMusicPluginEnablerController)
 
-  ;
+  //MyVolumio
+  .controller('MyVolumioLoginController', MyVolumioLoginController)
+  .controller('MyVolumioSignupController', MyVolumioSignupController)
+  .controller('MyVolumioProfileController', MyVolumioProfileController)
+  .controller('MyVolumioPlansController', MyVolumioPlansController)
+  .controller('MyVolumioSubscribeController', MyVolumioSubscribeController)
+  .controller('MyVolumioPaymentSuccessController', MyVolumioPaymentSuccessController)
+  .controller('MyVolumioPaymentFailController', MyVolumioPaymentFailController)
+  .controller('MyVolumioRecoverPasswordController', MyVolumioRecoverPasswordController)
+  .controller('MyVolumioEditProfileController', MyVolumioEditProfileController)
+  .controller('MyVolumioVerifyUserController', MyVolumioVerifyUserController)
+  .controller('MyVolumioCancelSubscriptionController', MyVolumioCancelSubscriptionController)
+  .controller('MyVolumioChangeSubscriptionController', MyVolumioChangeSubscriptionController)
+  .controller('MyVolumioCloudSelectDeviceController', MyVolumioCloudSelectDeviceController)
+  .controller('MyVolumioAccessController', MyVolumioAccessController);
