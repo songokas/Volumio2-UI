@@ -1,7 +1,8 @@
 class ModalService {
-  constructor($uibModal, socketService, $rootScope) {
+  constructor($uibModal, socketService, $rootScope, $filter) {
     'ngInject';
     this.$uibModal = $uibModal;
+	this.$filteredTranslate = $filter('translate');
     this.socketService = socketService;
     this.openedModals = [];
     $rootScope.$on('socket:init', () => {

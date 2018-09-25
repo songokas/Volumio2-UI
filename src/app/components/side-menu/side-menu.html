@@ -16,6 +16,11 @@
       <i class="fa fa-times"></i>
     </button>
 
+    <div ng-if="sideMenu.isAuthActive()" id="myvolumio-card-container">
+      <my-volumio-user-card action-callback="sideMenu.toggleMenu()">
+        </my-volumio-card>
+    </div>
+
     <button
         ng-repeat="item in sideMenu.menuItems track by $index"
         ng-click="sideMenu.itemClick(item)"

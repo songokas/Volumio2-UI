@@ -49,32 +49,27 @@ function routerConfig ($stateProvider, $urlRouterProvider, $locationProvider, th
         }
       },
       resolve: {
-        //NOTE this resolver init also global services like toast
-        socketResolver: ($rootScope, $http, $window, socketService, ripperService, modalListenerService,
-            toastMessageService, uiSettingsService, updaterService) => {
-          let localhostApiURL = `http://${$window.location.hostname}/api`;
-          return $http.get(localhostApiURL + '/host')
-            .then((response) => {
-              console.info('IP from API', response);
-              $rootScope.initConfig = response.data;
-              const hosts = response.data;
-              const firstHostKey = Object.keys(hosts)[0];
-              socketService.hosts = hosts;
-              socketService.host = hosts[firstHostKey];
-            }, () => {
-              //Fallback socket
-              console.info('Dev mode: IP from local-config.json');
-              return $http.get('/app/local-config.json').then((response) => {
-                // const hosts = {
-                //   'host1': 'http://192.168.0.65',
-                //   'host2': 'http://192.168.0.66',
-                //   'host3': 'http://192.168.0.67'};
-                const hosts = {'devHost': response.data.localhost};
-                const firstHostKey = Object.keys(hosts)[0];
-                socketService.hosts = hosts;
-                socketService.host = hosts[firstHostKey];
-              });
-            });
+        dependenciesResolver: (
+          $rootScope,
+          ripperService,
+          modalListenerService,
+          toastMessageService,
+          uiSettingsService,
+          updaterService
+        ) => {
+          //NOTE this resolver init global services like toast
+        },
+        socketResolver: function($rootScope, deviceEndpointsService, $q, $document) {
+          var checking = $q.defer();
+          deviceEndpointsService.initSocket().then(isAvalaible => {
+            if (isAvalaible === false) {
+              checking.reject('NO_SOCKET_ENDPOINTS');
+              return;
+            }
+            $document[0].body.classList.remove('myVolumioBkg');
+            checking.resolve(isAvalaible);
+          });
+          return checking.promise;
         }
       }
     })
@@ -307,89 +302,211 @@ function routerConfig ($stateProvider, $urlRouterProvider, $locationProvider, th
           ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.play-queue', {
-      url: 'queue',
-      views: {
-        'content@volumio': {
-          templateUrl: themeManagerProvider.getHtmlPath('play-queue'),
-          controller: 'PlayQueueController',
-          controllerAs: 'playQueue'
+  .state('myvolumio.edit-profile', {
+    url: 'profile/edit',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/edit-profile/myvolumio-edit-profile.html',
+        controller: 'MyVolumioEditProfileController',
+        controllerAs: 'myVolumioEditProfileController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireUser();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.playback', {
-      url: 'playback',
-      views: {
-        'content@volumio': {
-          templateUrl: themeManagerProvider.getHtmlPath('playback'),
-          controller: 'PlaybackController',
-          controllerAs: 'playback'
+  .state('myvolumio.plans', {
+    url: '/plans',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/plans/myvolumio-plans.html',
+        controller: 'MyVolumioPlansController',
+        controllerAs: 'myVolumioPlansController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.debug', {
-      url: 'debug',
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/components/debug/volumio-debug.html',
-          controller: 'DebugController',
-          controllerAs: 'debug'
+  .state('myvolumio.subscribe', {
+    url: '/subscribe/:plan',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/subscribe/myvolumio-subscribe.html',
+        controller: 'MyVolumioSubscribeController',
+        controllerAs: 'myVolumioSubscribeController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.multi-room', {
-      url: 'multi-room',
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/themes/axiom/multi-room-manager/axiom-multi-room-manager.html',
-          controller: 'MultiRoomManagerController',
-          controllerAs: 'multiRoomManager'
+  .state('myvolumio.payment-success', {
+    url: '/payment/success',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/payment-success/myvolumio-payment-success.html',
+        controller: 'MyVolumioPaymentSuccessController',
+        controllerAs: 'myVolumioPaymentSuccessController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.plugin', {
-      url: 'plugin/:pluginName',
-      params: {isPluginSettings: null},
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/plugin/plugin.html',
-          controller: 'PluginController',
-          controllerAs: 'plugin'
+  .state('myvolumio.payment-fail', {
+    url: '/payment/fail',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/payment-fail/myvolumio-payment-fail.html',
+        controller: 'MyVolumioPaymentFailController',
+        controllerAs: 'myVolumioPaymentFailController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.plugin-manager', {
-      url: 'plugin-manager',
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/plugin-manager/plugin-manager.html',
-          controller: 'PluginManagerController',
-          controllerAs: 'pluginManager'
+  .state('myvolumio.recover-password', {
+    url: '/recover-password',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/recover-password/myvolumio-recover-password.html',
+        controller: 'MyVolumioRecoverPasswordController',
+        controllerAs: 'myVolumioRecoverPasswordController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.waitForUser();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
-    .state('volumio.static-page', {
-      url: 'static-page/:pageName',
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/static-pages/static-page.html',
-          controller: 'StaticPageController',
-          controllerAs: 'staticPage'
+  .state('myvolumio.verify-user', {
+    url: '/profile/verify',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/verify-user/myvolumio-verify-user.html',
+        controller: 'MyVolumioVerifyUserController',
+        controllerAs: 'myVolumioVerifyUserController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireUser();
+            }
+          ]
         }
       }
-    })
+    }
+  })
 
+  .state('myvolumio.cancel-subscription', {
+    url: '/subscription/cancel',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/cancel-subscription/myvolumio-cancel-subscription.html',
+        controller: 'MyVolumioCancelSubscriptionController',
+        controllerAs: 'myVolumioCancelSubscriptionController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
+        }
+      }
+    }
+  })
 
-    .state('volumio.redirect', {
-      url: 'redirect',
+  .state('myvolumio.change-subscription', {
+    url: '/subscription/change/:plan',
+    views: {
+      'content@myvolumio': {
+        templateUrl: 'app/components/myvolumio/change-subscription/myvolumio-change-subscription.html',
+        controller: 'MyVolumioChangeSubscriptionController',
+        controllerAs: 'myVolumioChangeSubscriptionController',
+        resolve: {
+          user: [
+            'authService',
+            function(authService) {
+              return authService.requireVerifiedUserOrRedirect();
+            }
+          ]
+        }
+      }
+    }
+  })
+
+  /* --------- END MYVOLUMIO ----------- */
+
+  .state('volumio.static-page', {
+    url: 'static-page/:pageName',
+    views: {
+      'content@volumio': {
+        templateUrl: 'app/static-pages/static-page.html',
+        controller: 'StaticPageController',
+        controllerAs: 'staticPage'
+      }
+    }
+  })
+
+  .state('redirect', {
+     url: '/redirect',
+     views: {
+       layout: {
+         template: '',
+         controller: function($state, cloudService) {
+           if (cloudService.isOnCloud === true) {
+             $state.go('myvolumio.access');
+             return;
+           }
+           $state.go('volumio.redirect');
+         }
+       }
+     }
+   })
+
+  .state('volumio.redirect', {
+      url: 'indexstate-redirect',
       views: {
         'content@volumio': {
           template: '',
@@ -412,43 +529,16 @@ function routerConfig ($stateProvider, $urlRouterProvider, $locationProvider, th
       }
     })
 
-    .state('volumio.wizard', {
-      url: 'wizard',
-      views: {
-        'content@volumio': {
-          templateUrl: 'app/wizard/wizard.html',
-          controller: 'WizardController',
-          controllerAs: 'wizard'
-        }
-      }
-    })
-
-  .state('redirect', {
-    url: '/redirect',
+  .state('volumio.wizard', {
+    url: 'wizard',
     views: {
-      layout: {
-        template: '',
-        controller: function($state, uiSettingsService, cloudService) {
-          if (cloudService.isOnCloud === true) {
-            $state.go('myvolumio.access');
-            return;
-          }
-          uiSettingsService.initService().then((data) => {
-            if (data && data.indexState) {
-              if (data.indexStateHome) {
-                browseService.backHome();
-                $state.go(`volumio.${data.indexState}`);
-              } else {
-                $state.go(`volumio.${data.indexState}`);
-              }
-            } else {
-              $state.go('volumio.playback');
-            }
-          });
-        }
+      'content@volumio': {
+        templateUrl: 'app/wizard/wizard.html',
+        controller: 'WizardController',
+        controllerAs: 'wizard'
       }
-    });
-
+    }
+  });
 
   $urlRouterProvider.otherwise('/redirect');
 }

@@ -1,4 +1,4 @@
-function runBlock (themeManager, $state, $rootScope) {
+function runBlock (themeManager, $state, $rootScope, cloudService) {
   'ngInject';
   themeManager.setPageMetadata();
   $rootScope.state = $state;

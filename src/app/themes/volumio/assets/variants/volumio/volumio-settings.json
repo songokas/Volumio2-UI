@@ -14,7 +14,7 @@
   "addressBarColor": "black",
   "knobThicknessDesktop": 0.2,
   "knobThicknessMobile": 0.09,
-  "indexState": "playback",
+  "indexState": "browse",
   "browseSourcesView": "grid",
   "loadingBar": true
 }

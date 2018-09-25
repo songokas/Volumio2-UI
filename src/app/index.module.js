@@ -67,12 +67,20 @@ import LightSwitchBtnDirective from './components/light-switch-btn/light-switch-
 //Directives
 import PluginAttributesDirective from './plugin/components/plugin-attributes.directive';
 import PluginVisibleDirective from './plugin/components/plugin-visible.directive';
-//auth directives
+import PluginComponent from './plugin/components/plugin.component';
+
+//MyVolumio Directives
 import StripePayButtonDirective from './components/myvolumio/components/stripe-pay-button/stripe-pay-button.directive';
 import PaddlePayButtonDirective from './components/myvolumio/components/paddle-pay-button/paddle-pay-button.directive';
 import MyVolumioCardDirective from './components/myvolumio/components/card/myvolumio-card.directive';
 import MyVolumioBackButtonDirective from './components/myvolumio/components/shareds/back-button/myvolumio-back-button.directive';
-import PluginComponent from './plugin/components/plugin.component';
+import MyVolumioAlreadyLoggedDirective from './components/myvolumio/components/shareds/already-logged/myvolumio-already-logged.directive';
+import MyVolumioCurrentPlanCardDirective from './components/myvolumio/components/shareds/current-plan-card/myvolumio-current-plan-card.directive';
+import MyVolumioFileOnChangeDirective from './components/myvolumio/components/shareds/file-on-change/myvolumio-file-on-change.directive';
+import MyVolumioAvatarImageDirective from './components/myvolumio/components/shareds/avatar-image/myvolumio-avatar-image.directive';
+import MyVolumioPlanCardDirective from './components/myvolumio/components/shareds/plan-card/myvolumio-plan-card.directive';
+import MyVolumioVerificationCardDirective from './components/myvolumio/components/shareds/verification-card/myvolumio-verification-card.directive';
+import MyVolumioDeviceSelectorDirective from './components/myvolumio/components/device-selector/device-selector.directive';
 
 // Controllers
 import HeaderController from './header/header.controller';
@@ -111,6 +119,8 @@ import ModalTrackManagerActionsController from
   './components/track-manager/components/modals/modal-track-manager-actions.controller';
 import ModalNetwordDrivesPasswordController from './plugin/core-plugin/modals/modal-network-drive-password.controller';
 import ModalCryptoController from './components/modals/modal-crypto.controller';
+import MyVolumioTermsModalController from './components/myvolumio/modals/myvolumio-terms-modal/myvolumio-terms-modal.controller';
+import MyVolumioPayingModalController from './components/myvolumio/modals/myvolumio-paying-modal/myvolumio-paying-modal.controller';
 
 
 //Core plugin controller
@@ -244,8 +254,8 @@ angular.module('volumio', [
   .directive('trackActionsBtn', (themeManager) => new TrackAciotnsBtnDirective(themeManager))
   .directive('lightSwitchBtn', (themeManager) => new LightSwitchBtnDirective(themeManager))
 
-//MyVolumio Directives
-.directive('stripePayButton', () => new StripePayButtonDirective())
+  //MyVolumio Directives
+  .directive('stripePayButton', () => new StripePayButtonDirective())
   .directive('paddlePayButton', () => new PaddlePayButtonDirective())
   .directive('myVolumioUserCard', () => new MyVolumioCardDirective())
   .directive('myVolumioBackButton', () => new MyVolumioBackButtonDirective())
@@ -293,8 +303,8 @@ angular.module('volumio', [
   .controller('ModalTrackManagerActionsController', ModalTrackManagerActionsController)
   .controller('ModalNetwordDrivesPasswordController', ModalNetwordDrivesPasswordController)
   .controller('ModalCryptoController', ModalCryptoController)
-
-
+  .controller('MyVolumioTermsModalController', MyVolumioTermsModalController)
+  .controller('MyVolumioPayingModalController', MyVolumioPayingModalController)
   .controller('WifiPluginController',  WifiPluginController)
   .controller('NetworkStatusPluginController', NetworkStatusPluginController)
   .controller('MyMusicPluginController', MyMusicPluginController)
