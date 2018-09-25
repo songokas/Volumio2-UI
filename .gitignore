@@ -1,4 +1,5 @@
 src/app/ngConstants.js
+src/app/volumio.constant.js
 src/app/local-config.json
 dist/
 node_modules/
