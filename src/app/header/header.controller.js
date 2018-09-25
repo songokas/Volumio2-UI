@@ -9,98 +9,98 @@ class HeaderController {
     this.$state = $state;
     this.language = {};
     this.languages = [{
-        "value": "ca",
-        "label": "Catal�"
-      },
-      {
-        "value": "cs",
-        "label": "Cesky"
-      },
-      {
-        "value": "da",
-        "label": "Dansk"
-      },
-      {
-        "value": "de",
-        "label": "Deutsch"
-      },
-      {
-        "value": "en",
-        "label": "English"
-      },
-      {
-        "value": "es",
-        "label": "Espa�ol"
-      },
-      {
-        "value": "fr",
-        "label": "Fran�ais"
-      },
-      {
-        "value": "gr",
-        "label": "e???????"
-      },
-      {
-        "value": "it",
-        "label": "Italiano"
-      },
-      {
-        "value": "ja",
-        "label": "???"
-      },
-      {
-        "value": "ko",
-        "label": "???"
-      },
-      {
-        "value": "hu",
-        "label": "Magyar"
-      },
-      {
-        "value": "nl",
-        "label": "Nederlands"
-      },
-      {
-        "value": "no",
-        "label": "Norsk"
-      },
-      {
-        "value": "pl",
-        "label": "Polski"
-      },
-      {
-        "value": "pt",
-        "label": "Portugu�s"
-      },
-      {
-        "value": "ru",
-        "label": "???????"
-      },
-      {
-        "value": "sk",
-        "label": "Slovensky"
-      },
-      {
-        "value": "fi",
-        "label": "Suomi"
-      },
-      {
-        "value": "sv",
-        "label": "Svenska"
-      },
-      {
-        "value": "ua",
-        "label": "??????????"
-      },
-      {
-        "value": "zh",
-        "label": "????"
-      },
-      {
-        "value": "zh_TW",
-        "label": "????"
-      }
-    ];
+      "value": "ca",
+      "label": "Català"
+    },
+    {
+      "value": "cs",
+      "label": "Česky"
+    },
+    {
+      "value": "da",
+      "label": "Dansk"
+    },
+    {
+      "value": "de",
+      "label": "Deutsch"
+    },
+    {
+      "value": "en",
+      "label": "English"
+    },
+    {
+      "value": "es",
+      "label": "Español"
+    },
+    {
+      "value": "fr",
+      "label": "Français"
+    },
+    {
+      "value": "gr",
+      "label": "ελληνικά"
+    },
+    {
+      "value": "it",
+      "label": "Italiano"
+    },
+    {
+      "value": "ja",
+      "label": "日本語"
+    },
+    {
+      "value": "ko",
+      "label": "한국어"
+    },
+    {
+      "value": "hu",
+      "label": "Magyar"
+    },
+    {
+      "value": "nl",
+      "label": "Nederlands"
+    },
+    {
+      "value": "no",
+      "label": "Norsk"
+    },
+    {
+      "value": "pl",
+      "label": "Polski"
+    },
+    {
+      "value": "pt",
+      "label": "Português"
+    },
+    {
+      "value": "ru",
+      "label": "Русский"
+    },
+    {
+      "value": "sk",
+      "label": "Slovensky"
+    },
+    {
+      "value": "fi",
+      "label": "Suomi"
+    },
+    {
+      "value": "sv",
+      "label": "Svenska"
+    },
+    {
+      "value": "ua",
+      "label": "Українська"
+    },
+    {
+      "value": "zh",
+      "label": "简体中文"
+    },
+    {
+      "value": "zh_TW",
+      "label": "繁體中文"
+    }
+  ];
     if (!socketService.host) {
       this.setDefaultLanguage();
     }
