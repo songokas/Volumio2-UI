@@ -6,9 +6,6 @@ function runBlock (themeManager, $state, $rootScope, cloudService) {
   $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
     event.preventDefault();
 
-    console.log("OnRouteCanLoad ERROR");
-    console.log(error);
-
     if (error === "MYVOLUMIO_NOT_ENABLED") {
       $state.go("volumio.browse");
       return;

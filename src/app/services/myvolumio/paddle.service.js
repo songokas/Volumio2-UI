@@ -41,10 +41,12 @@ class PaddleService {
   }
 
   initPaddle() {
+    /* jshint ignore:start */
     Paddle.Setup({
       vendor: this.paddleVendorId,
       debug: false
     });
+    /* jshint ignore:end */
     this.isInit = true;
   }
 

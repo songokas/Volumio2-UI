@@ -1,6 +1,6 @@
 class DeviceEndpointsService {
 
-  constructor($rootScope, socketService, $window, $http, myVolumioDevicesService, cloudService, authService) {
+  constructor($rootScope, socketService, $window, $http, myVolumioDevicesService, cloudService, authService, $log) {
     'ngInject';
     this.$rootScope = $rootScope;
     this.socketService = socketService;
@@ -9,6 +9,7 @@ class DeviceEndpointsService {
     this.myVolumioDevicesService = myVolumioDevicesService;
     this.cloudService = cloudService;
     this.authService = authService;
+    this.$log = $log;
 
     this.hosts = null;
     this.cloudAutoConnectToLastHwId = true;
@@ -37,13 +38,13 @@ class DeviceEndpointsService {
     let localhostApiURL = `http://${this.$window.location.hostname}/api`;
     return this.$http.get(localhostApiURL + '/host')
       .then((response) => {
-        console.info('IP from API', response);
+        this.$log.debug('IP from API', response);
         this.$rootScope.initConfig = response.data;
         const hosts = response.data;
         return hosts;
       }, () => {
         //Fallback socket
-        console.info('Dev mode: IP from local-config.json');
+        this.$log.debug('Dev mode: IP from local-config.json');
         return this.$http.get('/app/local-config.json').then((response) => {
           const hosts = { 'devHost': response.data.localhost };
           return hosts;

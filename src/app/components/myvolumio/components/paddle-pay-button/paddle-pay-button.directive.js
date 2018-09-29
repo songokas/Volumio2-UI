@@ -71,6 +71,7 @@ class PaddlePayButtonController {
   }
 
   handlePayment() {
+    /* jshint ignore:start */
     Paddle.Checkout.open({
       product: this.product.paddleId,
       email: this.userEmail,
@@ -82,6 +83,7 @@ class PaddlePayButtonController {
         this.closeCallback(data);
       },
     }, false);
+    /* jshint ignore:end */
   }
 
   successCallback(data) {

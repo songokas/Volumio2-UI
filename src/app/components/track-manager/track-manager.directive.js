@@ -104,7 +104,7 @@ class TrackManagerController {
     }
     if (this.uiSettingsService && this.uiSettingsService.uiSettings) {
       if (this.uiSettingsService.uiSettings.knobThicknessMobile) {
-        this.knobThicknessMobile = this.uiSettingsService.uiSettings.knobThicknessMobile
+        this.knobThicknessMobile = this.uiSettingsService.uiSettings.knobThicknessMobile;
       }
       if (this.uiSettingsService.uiSettings.knobThicknessDesktop) {
         this.knobThicknessDesktop = this.uiSettingsService.uiSettings.knobThicknessDesktop;
