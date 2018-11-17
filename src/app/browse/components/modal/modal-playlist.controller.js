@@ -22,7 +22,7 @@ class ModalPlaylistController {
 
   doAddToPlaylist(playlist) {
     if (this.dataObj.addQueue) {
-      this.playlistService.addQueueToPlaylist(playlist);
+      this.playlistService.addQueueToPlaylist(playlist, this.dataObj.index);
     } else {
       this.playlistService.addToPlaylist(this.dataObj.item, playlist);
     }

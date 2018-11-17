@@ -112,6 +112,11 @@ class BrowseController {
   addToPlaylist(item) {
     //TODO this is not necessary
     this.playlistService.refreshPlaylists();
+    if (this.browseService.currentFetchRequest && this.browseService.currentFetchRequest.type === 'playlist') {
+        if (this.browseService.currentFetchRequest.title) {
+            item.currentPlaylist = this.browseService.currentFetchRequest.title;
+        }
+    }
     let
       templateUrl = 'app/browse/components/modal/modal-playlist.html',
       controller = 'ModalPlaylistController',
@@ -208,7 +213,7 @@ class BrowseController {
     return ret;
   }
   showAddToPlaylist(item) {
-    let ret = item.type === 'folder' || item.type === 'song' ||
+    let ret = item.type === 'folder' || item.type === 'song' || item.type === 'mywebradio' ||
     item.type === 'remdisk' || item.type === 'folder-with-favourites' ||
     item.type === 'internal-folder';
     return ret;

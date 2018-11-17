@@ -1,10 +1,11 @@
 class PlayQueueController {
-  constructor($scope, $log, playQueueService, socketService, matchmediaService, playerService, $document) {
+  constructor($scope, $log, playQueueService, socketService, matchmediaService, playerService, queuePlaylistBtnController, $document) {
     'ngInject';
     this.playQueueService = playQueueService;
     this.matchmediaService = matchmediaService;
     this.socketService = socketService;
     this.playerService = playerService;
+    this.queuePlaylistBtnController = queuePlaylistBtnController;
     this.$document = $document;
     this.$log = $log;
     this.$scope = $scope;
@@ -57,13 +58,18 @@ class PlayQueueController {
 
       this.list +=
         `<div class="commandButtons">
-          <button
-              class="btn-link"
-              onclick="${angularThis}.playQueueService.remove(${i})">
-            <i class="fa fa-times-circle"></i>
-          </button>
+            <button onclick="${angularThis}.queuePlaylistBtnController.addToPlaylist(${i})" class="btn btn-link" title="Add to Playlist">
+              <i class="fa fa-plus"></i>
+            </button>
         </div>
-      </li>`;
+        <div class="commandButtons">
+            <button
+                class="btn-link"
+                onclick="${angularThis}.playQueueService.remove(${i})">
+                <i class="fa fa-times-circle"></i>
+            </button>
+            </div>
+        </li>`;
     }
     let ul = document.createElement('ul');
     angular.element(ul).append(this.list);

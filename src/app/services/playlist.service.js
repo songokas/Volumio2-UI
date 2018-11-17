@@ -21,15 +21,17 @@ class PlaylistService {
     const emitPayload = {
       name: playlist,
       uri: item.uri,
-      service: (item.service || null)
+      service: (item.service || null),
+      title: item.title,
+      copy: (item.currentPlaylist || null)
     };
     this.$log.debug('addToPlaylist', emitPayload);
     this.socketService.emit('addToPlaylist', emitPayload);
   }
 
-  addQueueToPlaylist(playlist) {
-    this.$log.debug('saveQueueToPlaylist', {name: playlist});
-    this.socketService.emit('saveQueueToPlaylist', {name: playlist});
+  addQueueToPlaylist(playlist, index) {
+    this.$log.debug('saveQueueToPlaylist', {name: playlist, index: index});
+    this.socketService.emit('saveQueueToPlaylist', {name: playlist, index: index});
   }
 
   removeFromPlaylist(item, playlist) {

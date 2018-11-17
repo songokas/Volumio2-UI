@@ -122,6 +122,7 @@ import ModalNetwordDrivesPasswordController from './plugin/core-plugin/modals/mo
 import ModalCryptoController from './components/modals/modal-crypto.controller';
 import MyVolumioTermsModalController from './components/myvolumio/modals/myvolumio-terms-modal/myvolumio-terms-modal.controller';
 import MyVolumioPayingModalController from './components/myvolumio/modals/myvolumio-paying-modal/myvolumio-paying-modal.controller';
+import QueuePlaylistBtnController from './components/add-track-to-playlist-btn/queue-playlist-btn-controller';
 
 
 //Core plugin controller
@@ -220,7 +221,8 @@ angular.module('volumio', [
   .service('productsService', ProductsService)
   .service('remoteStorageService', RemoteStorageService)
   .service('myVolumioDevicesService', MyVolumioDevicesService)
-  .service('firebaseApiFunctionsService',FirebaseApiFunctionsService)
+  .service('firebaseApiFunctionsService', FirebaseApiFunctionsService)
+  .service('queuePlaylistBtnController', QueuePlaylistBtnController)
 
 
 .provider('themeManager', ThemeManagerProvider)
@@ -315,6 +317,7 @@ angular.module('volumio', [
   .controller('FirmwareUploadPluginController', FirmwareUploadPluginController)
   .controller('UiSettingsPluginController', UiSettingsPluginController)
   .controller('MyMusicPluginEnablerController', MyMusicPluginEnablerController)
+
 
   //MyVolumio
   .controller('MyVolumioLoginController', MyVolumioLoginController)
